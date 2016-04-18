@@ -1,0 +1,27 @@
+{
+  "name": "mahjong",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Erik--Vink/majong.git"
+  },
+  "author": "Erik en COnno",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Erik--Vink/majong/issues"
+  },
+  "homepage": "https://github.com/Erik--Vink/majong#readme",
+  "dependencies": {
+    "angular": "^1.5.5",
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-http-server": "^1.16.0"
+  }
+}
