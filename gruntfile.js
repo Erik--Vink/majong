@@ -3,6 +3,11 @@
  */
 module.exports = function(grunt) {
     grunt.initConfig({
+        ts: {
+            default : {
+                files: [{src: ["app/ts/app.ts"], dest: "dist/ts/app.js"}]
+            }
+        },
         browserify: {
             js: {
                 src: 'app/js/app.js',
@@ -25,8 +30,12 @@ module.exports = function(grunt) {
         },
         watch: {
             js: {
-                files: "app/**/*.js",
+                files: "app/js/**/*.js",
                 tasks: "browserify"
+            },
+            ts: {
+                files: "app/ts/**/*.ts",
+                tasks: "ts"
             },
             html: {
                 files: 'app/**/*.html',
@@ -48,11 +57,12 @@ module.exports = function(grunt) {
     });
 
     // Load the npm installed tasks
+    grunt.loadNpmTasks("grunt-ts");
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-http-server');
 
     // The default tasks to run when you type: grunt
-    grunt.registerTask('default', ['browserify', 'copy', 'http-server', 'watch']);
+    grunt.registerTask('default', ['ts', 'browserify', 'copy', 'http-server', 'watch']);
 };
