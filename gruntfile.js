@@ -16,7 +16,6 @@ module.exports = function(grunt) {
         },
         copy: {
             all: {
-                // This copies all the html and css into the dist/ folder
                 expand: true,
                 cwd: 'app/',
                 src: ['**/*.html', '**/*.css'],
