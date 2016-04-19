@@ -2,6 +2,6 @@
  * Created by Nevernown on 18-4-2016.
  */
 
-require('angular/angular');
+require('angular/angular.min');
 
-var app = angular.module("Mohjang", []);
+var app = angular.module("app", []);
