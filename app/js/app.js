@@ -5,3 +5,6 @@
 require('angular/angular.min');
 
 var app = angular.module("app", []);
+var gameListController = require("./Controller/GameListController");
+
+app.controller("GameListController", gameListController);

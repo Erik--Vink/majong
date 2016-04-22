@@ -3,8 +3,11 @@
     <link rel="stylesheet" href="css/app.css"/>
     <title>Mohjang</title>
 </head>
-    <body>
-        LOOK AT THE PRETTY DOTS
+    <body ng-controller="GameListController as games">
+    <p>Games</p>
+    <p ng-repeat="game in games.games">
+        <b>Name: </b>{{game.name}}
+    </p>
         <script src="js/app.js"></script>
     </body>
 </html>
