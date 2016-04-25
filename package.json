@@ -34,6 +34,7 @@
     "grunt-http-server": "^1.16.0",
     "grunt-karma": "^0.12.2",
     "grunt-ts": "^5.5.0-beta.2",
+    "istanbul": "^0.4.3",
     "karma": "^0.13.22",
     "karma-browserify": "^5.0.4",
     "karma-chai": "^0.1.0",

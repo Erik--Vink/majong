@@ -14,13 +14,15 @@ describe("GameListController", function () {
         
         inject(function ($rootScope, $controller, $injector) {
             scope = $rootScope.$new();
-            gameListController = $controller
+            gameFactory = $injector.get('GameFactory');
+            gameListController = $controller('gameListController', {$scope: scope});
         })
     });
     
     describe("getGames", function () {
         it("should return 2 games", function () {
-            
+            GameListController.newGame();
+            expect(scope.game).to.not.be.undefined;
         });
     });
 });
