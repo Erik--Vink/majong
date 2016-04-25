@@ -9,7 +9,7 @@ describe("GameListController", function () {
     var gameListController;
     
     beforeEach(function () {
-        module("mahjong");
+        module("app");
         
         
         inject(function ($rootScope, $controller, $injector) {

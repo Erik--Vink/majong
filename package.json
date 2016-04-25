@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "karma start karma-config.js"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,10 @@
     "url": "https://github.com/Erik--Vink/majong/issues"
   },
   "homepage": "https://github.com/Erik--Vink/majong#readme",
-  "dependencies": {},
+  "dependencies": {
+    "angular-bootstrap-npm": "^0.14.3",
+    "angular-ui-router": "^0.2.18"
+  },
   "devDependencies": {
     "angular": "^1.5.5",
     "angular-mocks": "^1.5.5",

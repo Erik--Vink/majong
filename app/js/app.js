@@ -1,13 +1,18 @@
 require('angular/angular.min');
+require('angular-ui-router/release/angular-ui-router.min');
+require('angular-bootstrap-npm/dist/angular-bootstrap.min.js');
+require('angular-bootstrap-npm/dist/angular-bootstrap-tpls.min.js');
 
-var app = angular.module("app", []);
+var app = angular.module("app", ["ui.router", "ui.bootstrap"]);
 
-var userFactory = require("./service/UserFactory");
-var gameFactory = require("./service/GameFactory");
-var gameListController = require("./controller/GameListController");
+var routesConfig = require("./config/routes");
 
-console.log(gameFactory());
+var userFactory = require("./services/UserFactory");
+var gameFactory = require("./services/GameFactory");
+var gameListController = require("./controllers/GameListController");
 
 app.factory("UserFactory", userFactory);
 app.factory("GameFactory", ['UserFactory', gameFactory]);
-app.controller('GameListController', ['$scope', '$http', 'GameFactory', gameListController]);
+app.controller('GameListController',  gameListController);
+
+app.config(routesConfig);

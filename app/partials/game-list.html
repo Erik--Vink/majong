@@ -1,0 +1,9 @@
+<div ng-init="init()">
+    <h2>Gamelist</h2>
+    {{g.games}}
+    <table class="table">
+        <tr ng-repeat="game in g.games ">
+            <td>{{game}}</td>
+        </tr>
+    </table>
+</div>
