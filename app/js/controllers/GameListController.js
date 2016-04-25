@@ -1,15 +1,13 @@
 var _ = require('underscore');
 
 module.exports = function(GameFactory, UserFactory, $scope){
-    var self = $scope;
+    var self = this;
 
     self.user = UserFactory.user;
     self.games = [];
 
     self.init = function(){
-        self.games = GameFactory.games;
-        console.log("init");
-        console.log(GameFactory.games);
+        self.games = GameFactory.GET();
     };
 
     self.newGame = function(){
