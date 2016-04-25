@@ -1,8 +1,6 @@
-module.exports = function(){
+module.exports = function($timeout){
     return {
         GET: function(callBack){
-
-            $timeout(function(){
                 var games = [
                     {
                         "_id":"571dd32f3d3c3311009985ef",
@@ -162,8 +160,7 @@ module.exports = function(){
                         "id":"571dcd263d3c33110099831a"
                     }
                 ];
-                return callBack(games);
-            }, 1000);
+                return games;
         },
         PUT: function(game){
             //stub
