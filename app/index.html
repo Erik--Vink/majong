@@ -4,10 +4,12 @@
     <title>Mohjang</title>
 </head>
     <body ng-controller="GameListController as games">
+    <p>Errors</p>
+    <span ng-repeat="err in games.errors">{{err.message}}</span>
     <p>Games</p>
-    <p ng-repeat="game in games.games">
-        <b>Name: </b>{{game.name}}
-    </p>
+    <span ng-repeat="game in games.games">
+        <b>Created by: </b>{{game.createdBy.name}}
+    </span>
         <script src="js/app.js"></script>
     </body>
 </html>
