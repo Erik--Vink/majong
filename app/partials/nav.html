@@ -1,0 +1,19 @@
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">Mahjong</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-show="isLoggedIn()">
+                <a>
+                    <!--{{currentUser().email}}-->
+                <!--<span ng-if="currentUser().email">{{ currentUser().local.email }}</span>-->
+                <!--<span ng-if="currentUser().google.email">{{ currentUser().google.email }}</span>-->
+                </a>
+            </li>
+            <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
+            <li ng-hide="isLoggedIn()"><a href="login">Log In</a></li>
+            <li ng-hide="isLoggedIn()"><a href="signup">Register</a></li>
+        </ul>
+    </div>
+</nav>
