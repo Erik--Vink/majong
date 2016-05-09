@@ -5,6 +5,10 @@ module.exports = function($http, apiUrl){
         return $http.get(urlBase);
     };
 
+    this.getGame = function(id) {
+        return $http.get(urlBase+"/"+id);
+    };
+
     //this.getCustomer = function (id) {
     //    return $http.get(urlBase + '/' + id);
     //};

@@ -5,13 +5,16 @@ require('angular-bootstrap-npm/dist/angular-bootstrap-tpls.min');
 
 var app = angular.module("app", [
     "app.core",
-    //"app.user",
-    "app.game"
+    "app.auth",
+    "app.game",
+    "app.directives"
 ]);
 
 //require the module dependencies
 //require("./components/user/user.module");
 require("./config/core.module");
+require("./components/directives/directives.module");
+require("./components/auth/auth.module");
 require("./components/game/game.module");
 
 //var routesConfig = require("./config/routes");

@@ -18,8 +18,8 @@
             <td>{{game.maxPlayers}}</td>
             <td>{{game.players.length}}</td>
             <td>{{game.state}}</td>
-            <td><a class="btn btn-default" title="Game details" ui-sref="games.detail({'gameId':game.id})">Details</a></td>
-            <td><a class="btn btn-default" title="Game details" ng-disabled="game.players.length >= game.maxPlayers">Join</a></td>
+            <td><a class="btn btn-default" ui-sref="game({id:game.id, game:game})">Details</a></td>
+            <td><a class="btn btn-default" ng-disabled="game.players.length >= game.maxPlayers">Join</a></td>
         </tr>
     </table>
 </div>

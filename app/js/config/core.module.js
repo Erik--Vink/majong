@@ -3,12 +3,11 @@ var coreModule = angular.module('app.core', [
     "ui.bootstrap"
 ]);
 
-//global directives
-var navDirective = require("../components/directives/nav.directive");
-
-coreModule.directive('navbar', navDirective);
-
 //constants
 coreModule.constant('apiUrl', "http://mahjongmayhem.herokuapp.com/");
+
+//global routes
+var coreRoutes = require("./core.route");
+coreModule.config(coreRoutes);
 
 module.exports = coreModule;

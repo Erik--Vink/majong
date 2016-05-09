@@ -6,10 +6,23 @@ module.exports = function($stateProvider) {
             templateUrl: 'partials/games.html',
             controller: 'GamelistController as glc'
         })
-        .state('games.detail', {
-            url: "/games/:gameId",
-            templateUrl: 'partials/games.detail.html',
-            controller: 'GameController as gc'
+        .state('game', {
+            url: "/games/:id",
+            templateUrl: 'partials/game.html',
+            controller: 'GameController as gc',
+            params: {'id': '', 'game': null},
+            resolve: {
+                game: function($stateParams, GameService) {
+                    if(!$stateParams.game){
+                        return GameService.getGame($stateParams.id).then(function(game){
+                            return game.data;
+                        });
+                    }
+                    else{
+                        return $stateParams.game;
+                    }
+                }
+            }
         });
 
 };
