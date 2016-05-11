@@ -7,24 +7,13 @@ var app = angular.module("app", [
     "app.core",
     "app.auth",
     "app.game",
-    "app.directives"
+    "app.directives",
+    "app.http"
 ]);
 
-//require the module dependencies
-//require("./components/user/user.module");
 require("./config/core.module");
 require("./components/directives/directives.module");
 require("./components/auth/auth.module");
 require("./components/game/game.module");
+require("./config/http.module");
 
-//var routesConfig = require("./config/routes");
-//
-//var userFactory = require("./services/UserFactory");
-//var gameFactory = require("./services/GameFactory");
-//var gameListController = require("./components/game/GameListController");
-//
-//app.factory("UserFactory", userFactory);
-//app.factory("GameFactory", ['UserFactory', gameFactory]);
-//app.controller('GameListController',  gameListController);
-//
-//app.config(routesConfig);

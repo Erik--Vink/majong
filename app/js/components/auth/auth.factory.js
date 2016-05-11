@@ -1,5 +1,6 @@
 module.exports = function($window, $state){
     var auth = {};
+    var user = {};
 
     auth.getToken = function(){
         return $window.localStorage['x-token'];
