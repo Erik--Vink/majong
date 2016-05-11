@@ -1,4 +1,4 @@
-module.exports = function($window, $state){
+module.exports = function($window){
     var auth = {};
     var user = {};
 

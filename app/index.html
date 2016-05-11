@@ -3,37 +3,21 @@
     <meta charset="UTF-8">
     <base href="/">
     <!--<link rel="stylesheet" href="css/app.css"/>-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
     <title>Mohjang</title>
 </head>
 <body>
     <navbar></navbar>
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <a class="btn btn-primary" ui-sref="home" ui-sref-active="active">Home</a>
-                <a class="btn" ui-sref="games" ui-sref-active="active">Games</a>
-            </div>
-        </div>
        <div class="row">
            <div class="col-sm-12">
                <div ui-view></div>
            </div>
        </div>
-
     </div>
 
     <script src="js/app.js"></script>
 </body>
 
-    <!--<body ng-controller="GameListController as games">-->
-    <!--<p>Errors</p>-->
-    <!--<span ng-repeat="err in games.errors">{{err.message}}</span>-->
-    <!--<p>Games</p>-->
-    <!--<span ng-repeat="game in games.games">-->
-        <!--<b>Created by: </b>{{game.createdBy.name}}-->
-    <!--</span>-->
-        <!--<script src="js/app.js"></script>-->
-    <!--</body>-->
 </html>

@@ -9,6 +9,18 @@ module.exports = function($http, apiUrl){
         return $http.get(urlBase+"/"+id);
     };
 
+    this.getGameTemplates = function() {
+        return $http.get(apiUrl+"GameTemplates");
+    };
+
+    this.createGame = function(newGame){
+        return $http.post(urlBase, newGame);
+    };
+
+    this.joinGame = function(game){
+        return $http.post(urlBase+"/"+game.id+"/Players");
+    };
+
     //this.getCustomer = function (id) {
     //    return $http.get(urlBase + '/' + id);
     //};

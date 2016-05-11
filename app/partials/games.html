@@ -1,25 +1,51 @@
 <div ng-init="glc.init()">
-    <h2>Gamelist</h2>
-    <table class="table">
-        <tr>
-            <th>Owner</th>
-            <th>Created on</th>
-            <th>Min players</th>
-            <th>Max players</th>
-            <th>Current players</th>
-            <th>State</th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tr ng-repeat="game in glc.games ">
-            <td>{{game.createdBy.name}}</td>
-            <td>{{game.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-            <td>{{game.minPlayers}}</td>
-            <td>{{game.maxPlayers}}</td>
-            <td>{{game.players.length}}</td>
-            <td>{{game.state}}</td>
-            <td><a class="btn btn-default" ui-sref="game({id:game.id, game:game})">Details</a></td>
-            <td><a class="btn btn-default" ng-disabled="game.players.length >= game.maxPlayers">Join</a></td>
-        </tr>
-    </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Gamelist</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div ng-show="glc.errorMessage" class="alert alert-danger">
+                    <span>{{glc.errorMessage}}</span>
+                </div>
+
+                <div ng-show="glc.successMessage" class="alert alert-success">
+                    <span>{{glc.successMessage}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-10">
+                <a class="btn btn-success" ng-click="glc.createGame()" style="float:right; margin-bottom: 10px;"><span class="fa fa-plus"></span> New game</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table">
+                    <tr>
+                        <th>Owner</th>
+                        <th>Created on</th>
+                        <th>Min players</th>
+                        <th>Max players</th>
+                        <th>Current players</th>
+                        <th>State</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="game in glc.games ">
+                        <td>{{game.createdBy.name}}</td>
+                        <td>{{game.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{game.minPlayers}}</td>
+                        <td>{{game.maxPlayers}}</td>
+                        <td>{{game.players.length}}</td>
+                        <td>{{game.state}}</td>
+                        <td><a class="btn btn-default" ui-sref="game({id:game.id, game:game})">Details</a></td>
+                        <td><button class="btn btn-default" ng-click="glc.joinGame(game)" ng-disabled="!glc.canJoinGame(game)">Join</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

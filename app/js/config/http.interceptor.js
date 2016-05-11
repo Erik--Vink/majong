@@ -1,9 +1,11 @@
-module.exports = function (AuthFactory) {
+module.exports = function ($injector) {
     return {
         request: function (config) {
 
+            var AuthFactory = $injector.get('AuthFactory');
+
             config.headers['x-token'] = AuthFactory.getToken();
-            config.headers['x-username'] = 'application/json;odata=verbose';
+            config.headers['x-username'] = AuthFactory.getUsername();
 
             return config;
         }

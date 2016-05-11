@@ -1,26 +1,22 @@
 <div ng-init="gc.init()">
-    {{gc.game}}
-    <h2>{{gc.game.createdBy.name}}'s Game</h2>
-    <!--<table class="table">-->
-        <!--<tr>-->
-            <!--<th>Owner</th>-->
-            <!--<th>Created on</th>-->
-            <!--<th>Min players</th>-->
-            <!--<th>Max players</th>-->
-            <!--<th>Current players</th>-->
-            <!--<th>State</th>-->
-            <!--<th></th>-->
-            <!--<th></th>-->
-        <!--</tr>-->
-        <!--<tr ng-repeat="game in g.games ">-->
-            <!--<td>{{game.createdBy.name}}</td>-->
-            <!--<td>{{game.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>-->
-            <!--<td>{{game.minPlayers}}</td>-->
-            <!--<td>{{game.maxPlayers}}</td>-->
-            <!--<td>{{game.players.length}}</td>-->
-            <!--<td>{{game.state}}</td>-->
-            <!--<td><a class="btn btn-default" title="Game details">Details</a></td>-->
-            <!--<td><a class="btn btn-default" title="Game details" ng-disabled="game.players.length >= game.maxPlayers">Join</a></td>-->
-        <!--</tr>-->
-    <!--</table>-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>{{gc.game.createdBy.name}}'s Game</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li ui-sref=".players" ui-sref-active="active"><a>Players</a></li>
+                    <li ui-sref=".board" ui-sref-active="active"><a>Gameboard</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
 </div>
