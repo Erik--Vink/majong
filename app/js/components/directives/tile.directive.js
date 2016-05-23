@@ -17,7 +17,12 @@ module.exports = function(){
             //}
         },
         link : function(scope, element){
-            console.log(scope.tile);
+            //element.css("left", scope.tile.xPos * 73);
+            //element.css("top", scope.tile.yPos * 46);
+            var tileDiv = $(element).find(".tile");
+            tileDiv.css("left", scope.tile.xPos * 34 + (scope.tile.zPos * 4));
+            tileDiv.css("top", scope.tile.yPos * 44 - (scope.tile.zPos * 4));
+            tileDiv.css("z-index", scope.tile.zPos + (scope.tile.yPos));
         }
     };
 }

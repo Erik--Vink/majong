@@ -24,9 +24,13 @@
         <!--&lt;!&ndash;</tr>&ndash;&gt;-->
     <!--&lt;!&ndash;</table>&ndash;&gt;-->
 <!--</div>-->
+<h2>BOARD</h2>
 
-<div ng-repeat="tileData in gc.gameTiles">
-    <tile tile="tileData"></tile>
+<div class="tile-container">
+    <div ng-repeat="tileData in gc.gameTiles">
+        <tile tile="tileData"></tile>
+    </div>
 </div>
 
-<h2>BOARD</h2>
+
+<!--{{gc.gameTiles}}-->
