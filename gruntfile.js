@@ -32,13 +32,23 @@ module.exports = function(grunt) {
             },
             css: {
                 files: 'app/**/*.css',
-                tasks: 'copy'
+                tasks: 'sass'
+            }
+        },
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    'dist/css/app.css' : 'app/css/app.scss'
+                }
             }
         },
         connect: {
             server: {
                 options: {
-                    port: 3000,
+                    port: 3001,
                     base: './dist',
                     open : true,
                     livereload: true,
@@ -60,7 +70,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks("grunt-contrib-connect");
+    grunt.loadNpmTasks('grunt-contrib-sass');
 
     // The default tasks to run when you type: grunt
-    grunt.registerTask('default', ['browserify', 'copy', "connect:server", 'watch']);
+    grunt.registerTask('default', ['browserify', 'copy', 'sass', "connect:server", 'watch']);
 };
