@@ -1,4 +1,5 @@
 require('angular/angular.min');
+require('jquery/dist/jquery.min');
 require('angular-ui-router/release/angular-ui-router.min');
 require('angular-bootstrap-npm/dist/angular-bootstrap.min');
 require('angular-bootstrap-npm/dist/angular-bootstrap-tpls.min');

@@ -9,6 +9,10 @@ module.exports = function($http, apiUrl){
         return $http.get(urlBase+"/"+id);
     };
 
+    this.getGameTiles = function(id){
+        return $http.get(urlBase+"/"+id+"/Tiles");
+    };
+
     this.getGameTemplates = function() {
         return $http.get(apiUrl+"GameTemplates");
     };
