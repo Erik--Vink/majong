@@ -1,5 +1,5 @@
 <div ng-init="glc.init()">
-    <div class="container white">
+    <div class="container-white">
         <div class="row">
             <div class="col-sm-12">
                 <h1>Gamelist</h1>
@@ -35,7 +35,7 @@
                         <th></th>
                     </tr>
                     <tr ng-repeat="game in glc.games ">
-                        <td>{{game.createdBy.name}}</td>
+                        <td>{{game.createdBy._id}} - {{game.createdBy.name}}</td>
                         <td>{{game.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{game.minPlayers}}</td>
                         <td>{{game.maxPlayers}}</td>

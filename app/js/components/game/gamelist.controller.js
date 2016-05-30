@@ -8,6 +8,7 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
 
     self.init = function(){
         GameService.getGames().then(function(response){
+            self.games = response.data;
             console.log(response);
         });
     };
@@ -45,7 +46,7 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
     };
 
     self.canJoinGame = function(game){
-        if(game.state == 'finished'){
+        if(game.state == 'finished' || game.state == 'playing'){
             return false;
         }
         if(game.players.length >= game.maxPlayers){
