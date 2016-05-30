@@ -67,7 +67,10 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
     };
 
     self.getGames = function () {
+        console.log("Refreshing games list...");
+        console.log(self.params);
         GameService.getGames(self.params).then(function (response) {
+            console.log(response);
             self.games = response.data;
         });
     };
