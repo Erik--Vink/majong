@@ -21,7 +21,8 @@ require("./config/http.module");
 app.run(function (AuthFactory, $state, $rootScope) {
     $rootScope.$on("$stateChangeStart",
         function (event, toState, toParams, fromState, fromParams) {
-            if(!AuthFactory.isLoggedIn() && toState.url != '/login' ){
+            console.log(toState);
+            if(!AuthFactory.isLoggedIn() && toState.name != 'login' && toState.name != 'authcallback'){
                 $state.transitionTo('login');
                 event.preventDefault();
             }
