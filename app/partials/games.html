@@ -24,10 +24,10 @@
         <div class="row">
             <div class="col-sm-12">
                 <form ng-submit="glc.getGames()">
-                    <strong>Owner: </strong><input type="text" value="{{glc.params.createdBy}}"/>
-                    <strong>Player: </strong><input type="text" value="{{glc.params.player}}"/>
-                    <strong>Template: </strong><input type="text" value="{{glc.params.gameTemplate}}"/>
-                    <strong>State: </strong><input type="text" value="{{glc.params.state}}"/>
+                    <strong>Owner: </strong><input type="text" ng-model="glc.params.createdBy"/>
+                    <strong>Player: </strong><input type="text" ng-model="glc.params.player"/>
+                    <strong>Template: </strong><input type="text" ng-model="glc.params.gameTemplate"/>
+                    <strong>State: </strong><input type="text" ng-model="glc.params.state"/>
                     <button class="btn btn-primary" type="submit">Apply</button>
                 </form>
 
