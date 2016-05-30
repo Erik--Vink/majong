@@ -6,9 +6,16 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
     //self.user = UserFactory.user;
     self.games = [];
 
+    self.params = {
+        createdBy : null,
+        player: null,
+        gameTemplate: null,
+        state: null
+    };
+
     self.init = function(){
         GameService.getGames().then(function(response){
-            console.log(response);
+            self.games = response.data;
         });
     };
 
@@ -57,6 +64,12 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
         }
 
         return true;
+    };
+
+    self.getGames = function () {
+        GameService.getGames(self.params).then(function (response) {
+            self.games = response.data;
+        });
     };
 
     //$http({

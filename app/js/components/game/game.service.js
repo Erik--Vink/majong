@@ -1,14 +1,9 @@
 module.exports = function($http, apiUrl){
     var urlBase = apiUrl+'games';
 
-    this.getGames = function (created, player, template, state) {
-        var params = {};
-        if(created){ params.createdBy = created; }
-        if(player){ params.player = player; }
-        if(template){ params.gameTemplate = template; }
-        if(state){ params.state = state; }
-
-        return $http.get(urlBase, { params: params});
+    this.getGames = function (params) {
+        if(params){ return $http.get(urlBase, { params: params}); }
+        else { return $http.get(urlBase); }
     };
 
     this.getGame = function(id) {
