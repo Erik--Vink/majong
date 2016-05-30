@@ -8,7 +8,7 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
 
     self.init = function(){
         GameService.getGames().then(function(response){
-            self.games = response.data;
+            console.log(response);
         });
     };
 
