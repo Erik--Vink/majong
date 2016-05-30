@@ -2,6 +2,17 @@
     <div class="container-white">
         <div class="row">
             <div class="col-sm-12">
+                <div ng-show="gc.errorMessage" class="alert alert-danger">
+                    <span>{{gc.errorMessage}}</span>
+                </div>
+
+                <div ng-show="gc.successMessage" class="alert alert-success">
+                    <span>{{gc.successMessage}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
                 <h1>{{gc.game.createdBy.name}}'s Game</h1>
             </div>
         </div>

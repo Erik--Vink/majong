@@ -8,6 +8,17 @@
   border-radius: 0 !important;
 }
 
+.nav-tabs>li{
+  >a{
+    color:black;
+  }
+  &.active{
+    >a{
+      font-weight: bold;
+    }
+  }
+}
+
 .btn-success{
   background: $color_green !important;
   border-radius: 0 !important;
