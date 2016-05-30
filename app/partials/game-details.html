@@ -11,12 +11,20 @@
                 <td>{{gc.game._id}}</td>
             </tr>
             <tr>
+                <th>Template</th>
+                <td>{{gc.game.gameTemplate.id}}</td>
+            </tr>
+            <tr>
                 <th>Creator</th>
                 <td>{{gc.game.createdBy.name}}</td>
             </tr>
             <tr>
                 <th>Created on</th>
                 <td>{{gc.game.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+            <tr ng-if="gc.game.startedOn">
+                <th>Started on</th>
+                <td>{{gc.game.startedOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
             </tr>
             <tr>
                 <th>Min players</th>
@@ -34,11 +42,12 @@
                 <th>Game state</th>
                 <td>{{gc.game.state}}</td>
             </tr>
+
         </table>
 
     </div>
     <div class="col-sm-12">
-        <button class="btn btn-success" ng-click="gc.joinGame(gc.game)" ng-if="!gc.isOwner" ng-disabled="canJoinGame(gc.game)" style="margin-bottom: 10px;">Join game</button>
-        <button class="btn btn-success" ng-click="gc.startGame(gc.game)" ng-if="gc.isOwner" ng-disabled="canStartGame(gc.game)" style="margin-bottom: 10px;">Start game</button>
+        <button class="btn btn-success" ng-click="gc.joinGame(gc.game)" ng-if="!gc.isOwner" ng-disabled="!gc.canJoinGame(gc.game)" style="margin-bottom: 10px;">Join game</button>
+        <button class="btn btn-success" ng-click="gc.startGame(gc.game)" ng-if="gc.isOwner" ng-disabled="!gc.canStartGame(gc.game)" style="margin-bottom: 10px;">Start game</button>
     </div>
 </div>

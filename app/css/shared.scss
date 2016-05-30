@@ -37,3 +37,24 @@
     background: lighten($color_teal, 5) !important;
   }
 }
+
+.btn-primary{
+  background: $color_blue !important;
+  border-radius: 0 !important;
+  color:$color_white !important;
+
+  &:hover{
+    background: lighten($color_blue, 5) !important;
+  }
+}
+
+.filter-container{
+  border-top:1px solid #DDDDDD;
+  border-bottom: 1px solid black;
+  padding:5px;
+  margin-bottom: 0;
+
+  .form-group{
+    margin-bottom: 0 !important;
+  }
+}
