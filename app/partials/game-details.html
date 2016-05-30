@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Details</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <td>{{gc.game._id}}</td>
+            </tr>
+            <tr>
+                <th>Creator</th>
+                <td>{{gc.game.createdBy.name}}</td>
+            </tr>
+            <tr>
+                <th>Created on</th>
+                <td>{{gc.game.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+            <tr>
+                <th>Min players</th>
+                <td>{{gc.game.minPlayers}}</td>
+            </tr>
+            <tr>
+                <th>Max players</th>
+                <td>{{gc.game.maxPlayers}}</td>
+            </tr>
+            <tr>
+                <th>Number of players</th>
+                <td>{{gc.game.players.length}}</td>
+            </tr>
+            <tr>
+                <th>Game state</th>
+                <td>{{gc.game.state}}</td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="col-sm-12">
+        <a class="btn btn-success" ng-click="glc.joinGame()" style="float:right; margin-bottom: 10px;">Join game</a>
+
+        <a class="btn btn-success" ng-click="glc.startGame()" style="float:right; margin-bottom: 10px;">Start game</a>
+    </div>
+</div>

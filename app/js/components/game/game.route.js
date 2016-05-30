@@ -1,6 +1,6 @@
 module.exports = function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.when('/games/:id', '/games/:id/players');
+    $urlRouterProvider.when('/games/:id', '/games/:id/details');
 
     $stateProvider
         .state('games', {
@@ -33,6 +33,10 @@ module.exports = function($stateProvider, $urlRouterProvider) {
         .state('game.board', {
             url: '/board',
             templateUrl: 'partials/game-board.html'
+        })
+        .state('game.details', {
+            url: '/details',
+            templateUrl: 'partials/game-details.html'
         });
 
 };
