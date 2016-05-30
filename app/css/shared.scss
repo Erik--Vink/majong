@@ -5,3 +5,22 @@
 .navbar{
   border-radius: 0 !important;
 }
+
+.btn-success{
+  background: $color_green !important;
+  border-radius: 0 !important;
+
+  &:hover{
+    background: lighten($color_green, 5) !important;
+  }
+}
+
+.btn-default{
+  background: $color_teal !important;
+  border-radius: 0 !important;
+  color:$color_white !important;
+
+  &:hover{
+    background: lighten($color_teal, 5) !important;
+  }
+}
