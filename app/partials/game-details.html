@@ -38,8 +38,7 @@
 
     </div>
     <div class="col-sm-12">
-        <a class="btn btn-success" ng-click="glc.joinGame()" style="float:right; margin-bottom: 10px;">Join game</a>
-
-        <a class="btn btn-success" ng-click="glc.startGame()" style="float:right; margin-bottom: 10px;">Start game</a>
+        <button class="btn btn-success" ng-click="gc.joinGame(gc.game)" ng-if="!gc.isOwner" ng-disabled="canJoinGame(gc.game)" style="margin-bottom: 10px;">Join game</button>
+        <button class="btn btn-success" ng-click="gc.startGame(gc.game)" ng-if="gc.isOwner" ng-disabled="canStartGame(gc.game)" style="margin-bottom: 10px;">Start game</button>
     </div>
 </div>

@@ -52,7 +52,7 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
     };
 
     self.canJoinGame = function(game){
-        if(game.state == 'finished'){
+        if(game.state != 'open'){
             return false;
         }
         if(game.players.length >= game.maxPlayers){
