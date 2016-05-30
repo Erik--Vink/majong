@@ -23,10 +23,15 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <strong>Owner: </strong><input type="email" value="{{glc.params.createdBy}}"/>
-                <strong>Player: </strong><input type="email" value="{{glc.params.player}}"/>
-                <input type="search" value="{{glc.params.gameTemplate}}"/>
-                <input type="search" value="{{glc.params.state}}"/>
+                <form ng-submit="glc.getGames()">
+                    <strong>Owner: </strong><input type="text" value="{{glc.params.createdBy}}"/>
+                    <strong>Player: </strong><input type="text" value="{{glc.params.player}}"/>
+                    <strong>Template: </strong><input type="text" value="{{glc.params.gameTemplate}}"/>
+                    <strong>State: </strong><input type="text" value="{{glc.params.state}}"/>
+                    <button class="btn btn-primary" type="submit">Apply</button>
+                </form>
+
+
                 <table class="table">
                     <tr>
                         <th>Owner</th>
