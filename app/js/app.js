@@ -18,3 +18,12 @@ require("./components/auth/auth.module");
 require("./components/game/game.module");
 require("./config/http.module");
 
+app.run(function (AuthFactory, $state, $rootScope) {
+    $rootScope.$on("$stateChangeStart",
+        function (event, toState, toParams, fromState, fromParams) {
+            if(!AuthFactory.isLoggedIn() && toState.url != '/login' ){
+                $state.transitionTo('login');
+                event.preventDefault();
+            }
+        });
+});
