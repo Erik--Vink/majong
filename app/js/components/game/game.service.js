@@ -18,9 +18,9 @@ module.exports = function($http, apiUrl){
         return $http.get(apiUrl+"GameTemplates");
     };
 
-    // this.getGameStates = function() {
-    //     return $http.get(apiUrl+"GameTemplates");
-    // };
+    this.getGameStates = function() {
+        return $http.get(apiUrl+"gamestates");
+    };
 
     this.createGame = function(newGame){
         return $http.post(urlBase, newGame);

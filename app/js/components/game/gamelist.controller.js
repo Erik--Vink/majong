@@ -6,6 +6,10 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
     //self.user = UserFactory.user;
     self.games = [];
 
+    self.states = [];
+
+    self.templates = [];
+
     self.params = {
         createdBy : null,
         player: null,
@@ -16,6 +20,18 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
     self.init = function(){
         GameService.getGames().then(function(response){
             self.games = response.data;
+        });
+        GameService.getGameStates().then(function(response){
+            self.states = _.map(response.data, function (state) {
+                return state.state
+            });
+            self.states.push(null);
+        });
+        GameService.getGameTemplates().then(function(response){
+            self.templates = _.map(response.data, function (template) {
+                return template.id;
+            });
+            self.templates.push(null);
         });
     };
 

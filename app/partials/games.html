@@ -26,8 +26,8 @@
                 <form ng-submit="glc.getGames()">
                     <strong>Owner: </strong><input type="text" ng-model="glc.params.createdBy"/>
                     <strong>Player: </strong><input type="text" ng-model="glc.params.player"/>
-                    <strong>Template: </strong><input type="text" ng-model="glc.params.gameTemplate"/>
-                    <strong>State: </strong><input type="text" ng-model="glc.params.state"/>
+                    <strong>Template: </strong><select ng-model="glc.params.gameTemplate" ng-options="template for template in glc.templates"></select>
+                    <strong>State: </strong><select ng-model="glc.params.state" ng-options="state for state in glc.states"></select>
                     <button class="btn btn-primary" type="submit">Apply</button>
                 </form>
 
