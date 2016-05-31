@@ -21,17 +21,47 @@
                 <a class="btn btn-success" ng-click="glc.createGame()" style="float:right; margin-bottom: 10px;"><span class="fa fa-plus"></span> New game</a>
             </div>
         </div>
+        <form ng-submit="glc.getGames()" class="filter-container form-horizontal">
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-3">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Owner:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="glc.params.createdBy"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Player:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="glc.params.player"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Template:</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="glc.params.gameTemplate" ng-options="template for template in glc.templates"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">State:</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="glc.params.state" ng-options="state for state in glc.states"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <button class="btn btn-primary" type="submit" style="float:right">Filter</button>
+                </div>
+            </div>
+        </form>
         <div class="row">
             <div class="col-sm-12">
-                <form ng-submit="glc.getGames()">
-                    <strong>Owner: </strong><input type="text" ng-model="glc.params.createdBy"/>
-                    <strong>Player: </strong><input type="text" ng-model="glc.params.player"/>
-                    <strong>Template: </strong><select ng-model="glc.params.gameTemplate" ng-options="template for template in glc.templates"></select>
-                    <strong>State: </strong><select ng-model="glc.params.state" ng-options="state for state in glc.states"></select>
-                    <button class="btn btn-primary" type="submit">Apply</button>
-                </form>
-
-
                 <table class="table">
                     <tr>
                         <th>Owner</th>

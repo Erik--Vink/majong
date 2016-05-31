@@ -8,7 +8,7 @@ module.exports = function(){
 
             $scope.logOut = function(){
                 AuthFactory.logOut();
-                $state.transitionTo('games'); // TODO: loginpage?
+                $state.transitionTo('login');
             }
         }]
     };

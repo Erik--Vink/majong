@@ -5,6 +5,9 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
+        <div ng-show="!gc.gameTiles">
+            This game has not started yet.
+        </div>
         <div class="tile-container">
             <div ng-repeat="tileData in gc.gameTiles">
                 <tile tile="tileData"></tile>
