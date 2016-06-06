@@ -9,7 +9,8 @@ var app = angular.module("app", [
     "app.auth",
     "app.game",
     "app.directives",
-    "app.http"
+    "app.http",
+    "app.board"
 ]);
 
 require("./config/core.module");
@@ -17,6 +18,7 @@ require("./components/directives/directives.module");
 require("./components/auth/auth.module");
 require("./components/game/game.module");
 require("./config/http.module");
+require("./components/board/board.module");
 
 app.run(function (AuthFactory, $state, $rootScope) {
     $rootScope.$on("$stateChangeStart",
