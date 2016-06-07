@@ -27,9 +27,11 @@ module.exports = function(MatchFactory, $scope){
             });
         }));
 
+        console.log(surface);
+
         return _.any(self.board, function (tile) {
                 _.any(surface, function (pos) {
-                    return (tile.zPos == layer && tile.xPos == pos.x && tile.yPos == poz.z);
+                    return (tile.zPos == layer && tile.xPos == pos.x && tile.yPos == poz.y);
                 })
             });
     };
@@ -44,5 +46,6 @@ module.exports = function(MatchFactory, $scope){
 
     $scope.$on('tileSelected', function (event, data) {
         console.log(data); // 'data = tile object'
+        self.canSelect(data);
     });
 };
