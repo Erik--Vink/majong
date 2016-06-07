@@ -1,6 +1,6 @@
 module.exports = function($http, apiUrl){
     var urlBase = apiUrl+'games';
-
+    
     this.getGames = function (params) {
         if(params){ return $http.get(urlBase, { params: params}); }
         else { return $http.get(urlBase); }
@@ -12,6 +12,14 @@ module.exports = function($http, apiUrl){
 
     this.getGameTiles = function(id){
         return $http.get(urlBase+"/"+id+"/Tiles");
+    };
+
+    this.getGameMatches = function(id){
+        return $http.get(urlBase+"/"+id+"/Tiles/matches");
+    };
+
+    this.getGameTilesMatched = function(id, matched){
+        return $http.get(urlBase+"/"+id+"/Tiles",{params:{matched:matched}});
     };
 
     this.getGameTemplates = function() {

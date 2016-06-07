@@ -1,12 +1,8 @@
-<div class="row">
-    <div class="col-sm-12">
-        <div ng-show="!tiles">
-            This game has not started yet.
-        </div>
-        <div class="tile-container">
-            <div ng-repeat="tileData in tiles">
-                <tile tile="tileData"></tile>
-            </div>
-        </div>
+<div ng-show="!tiles">
+    This game has not started yet.
+</div>
+<div class="tile-container">
+    <div ng-repeat="tileData in tiles">
+        <tile tile="tileData"></tile>
     </div>
 </div>

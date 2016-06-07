@@ -1,6 +1,3 @@
-/**
- * Created by Nevernown on 6-6-2016.
- */
 var _ = require("underscore");
 
 module.exports = function(MatchFactory, $scope){
@@ -44,4 +41,8 @@ module.exports = function(MatchFactory, $scope){
     self.rightBlocked = function (tile) {
 
     };
+
+    $scope.$on('tileSelected', function (event, data) {
+        console.log(data); // 'data = tile object'
+    });
 };

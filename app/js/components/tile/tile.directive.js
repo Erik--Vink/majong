@@ -5,11 +5,13 @@ module.exports = function(){
         scope: {
             tile: '=tile'
         },
-        controller: function($state, $scope, AuthFactory) {
+        controller: function($scope, MatchFactory, $rootScope) {
 
             $scope.toggleSelected = function(){
-              $scope.selected = !$scope.selected;
-                console.log($scope.tile)
+                $scope.tile.selected = !$scope.tile.selected;
+                //$rootScope.$emit('rootScope:emit', $scope.tile);
+                $scope.$emit('tileSelected', $scope.tile); // going up!
+                $scope.selected ? MatchFactory.addTile($scope.tile) : MatchFactory.removeTile($scope.tile);
             };
         },
         link : function(scope, element){

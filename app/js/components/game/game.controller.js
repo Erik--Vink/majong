@@ -1,11 +1,16 @@
 
-module.exports = function(GameService, $stateParams, game, AuthFactory){
+module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFactory){
     var self = this;
 
     self.init = function(){
         self.game = game;
-        GameService.getGameTiles($stateParams.id).then(function(data){
+
+        GameService.getGameTilesMatched($stateParams.id, false).then(function(data){
             self.gameTiles = data.data;
+        });
+
+        GameService.getGameMatches($stateParams.id).then(function(data){
+            self.gameMatches = data.data;
         });
 
         self.isOwner = self.game.createdBy._id == AuthFactory.getUsername();
@@ -51,6 +56,10 @@ module.exports = function(GameService, $stateParams, game, AuthFactory){
         }, function(error){
             self.errorMessage = error.data.message;
         });
+    };
+
+    self.postMatch = function(tile1Id, tile2Id){
+        MatchFactory.postMatch(self.game._id, tile1Id, tile2Id);
     };
 
     self.initSocket = function(){
