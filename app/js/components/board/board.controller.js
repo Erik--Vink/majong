@@ -14,10 +14,7 @@ module.exports = function(MatchFactory, $scope){
         var freeTop = !self.isTopBlocked(tile);
         var freeLeft = !self.isLeftBlocked(tile);
         var freeRight = !self.isRightBlocked(tile);
-
-        console.log("Top: " + freeTop);
-        console.log("Left: " + freeLeft);
-        console.log("Right: " + freeRight);
+        
         return  (freeTop && freeLeft) || (freeTop && freeRight);
     };
 
@@ -64,6 +61,9 @@ module.exports = function(MatchFactory, $scope){
 
     $scope.$on('tileSelected', function (event, data) {
         console.log(data); // 'data = tile object'
-        console.log(self.canSelect(data));
+        if(self.canSelect(data)){
+            var toggled = MatchFactory.toggleTile(data);
+            if(toggled !== undefined) { $scope.$broadcast('tileToggled', { state: toggled, target: data }); }
+        }
     });
 };

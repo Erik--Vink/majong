@@ -5,12 +5,15 @@ module.exports = function(){
         scope: {
             tile: '=tile'
         },
-        controller: function($scope, MatchFactory, $rootScope) {
+        controller: function($scope) {
+            $scope.$on('tileToggled', function (event, data) {
+                if(data.target == $scope.tile) {
+                    $scope.selected = data.state;
+                }
+            });
 
             $scope.toggleSelected = function(){
-                $scope.selected = !$scope.selected;
                 $scope.$emit('tileSelected', $scope.tile);
-                $scope.selected ? MatchFactory.addTile($scope.tile) : MatchFactory.removeTile($scope.tile);
             };
         },
         link : function(scope, element){
@@ -20,4 +23,4 @@ module.exports = function(){
             tileDiv.css("z-index", scope.tile.zPos + scope.tile.yPos + (scope.tile.zPos * scope.tile.yPos));
         }
     };
-}
+};

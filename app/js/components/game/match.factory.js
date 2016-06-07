@@ -7,19 +7,19 @@ module.exports = function($http, apiUrl){
     var maxSelectedTiles = 2;
     var selectedTiles = [];
 
-    self.addTile = function(tile){
-      if(selectedTiles.length < maxSelectedTiles){
-          selectedTiles.push(tile);
-      }
-
-    };
-
-    self.removeTile = function(tile){
-
+    self.toggleTile = function (tile) {
+        if(_.contains(selectedTiles, tile)) {
+            selectedTiles = _.without(selectedTiles, tile);
+            return false;
+        } else if(selectedTiles.length < maxSelectedTiles) {
+            selectedTiles.push(tile);
+            return true;
+        }
     };
 
     self.isMatchValid = function(){
-        return true;
+        var first = selectedTiles[0];
+        var second = selectedTiles[1];
     };
 
     self.postMatch = function (gameId, tile1Id, tile2Id) {
