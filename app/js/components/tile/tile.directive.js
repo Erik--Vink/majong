@@ -8,9 +8,8 @@ module.exports = function(){
         controller: function($scope, MatchFactory, $rootScope) {
 
             $scope.toggleSelected = function(){
-                $scope.tile.selected = !$scope.tile.selected;
-                //$rootScope.$emit('rootScope:emit', $scope.tile);
-                $scope.$emit('tileSelected', $scope.tile); // going up!
+                $scope.selected = !$scope.selected;
+                $scope.$emit('tileSelected', $scope.tile);
                 $scope.selected ? MatchFactory.addTile($scope.tile) : MatchFactory.removeTile($scope.tile);
             };
         },
