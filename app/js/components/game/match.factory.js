@@ -18,8 +18,11 @@ module.exports = function($http, apiUrl){
     };
 
     self.isMatchValid = function(){
+        if (selectedTiles.length < maxSelectedTiles) { return false; }
         var first = selectedTiles[0];
         var second = selectedTiles[1];
+
+        return first.tile.suit == second.tile.suit && ((first.tile.matchesWholeSuit && second.tile.matchesWholeSuit) || first.tile.name == second.tile.name);
     };
 
     self.postMatch = function (gameId, tile1Id, tile2Id) {
