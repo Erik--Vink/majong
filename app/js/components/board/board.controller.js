@@ -3,18 +3,21 @@ var _ = require("underscore");
 module.exports = function(MatchFactory, $scope){
     var self = this;
 
-    self.SelectTile = function (tile) {
-        if(self.canSelect(tile))
-        {
-            MatchFactory.AddTile(tile);
-        }
-    };
+    //self.SelectTile = function (tile) {
+    //    if(self.canSelect(tile))
+    //    {
+    //        MatchFactory.AddTile(tile);
+    //    }
+    //};
 
     self.canSelect = function (tile) {
         var freeTop = !self.isTopBlocked(tile);
         var freeLeft = !self.isLeftBlocked(tile);
         var freeRight = !self.isRightBlocked(tile);
-        
+        console.log("top" + freeTop);
+        console.log("left" + freeLeft);
+        console.log("right" + freeRight);
+
         return  (freeTop && freeLeft) || (freeTop && freeRight);
     };
 
@@ -52,15 +55,18 @@ module.exports = function(MatchFactory, $scope){
     };
 
     self.hasTileAtAny = function (positions) {
-        return _.any($scope.tiles, function (tile) {
+        return _.any(self.tiles, function (tile) {
             return _.any(positions, function (pos) {
                 return (tile.xPos == pos.x && tile.yPos == pos.y && tile.zPos == pos.z);
             });
         });
     };
 
+    $scope.$watch('tiles', function(newValue, oldValue){
+        self.tiles = newValue;
+    });
+
     $scope.$on('tileSelected', function (event, data) {
-        console.log(data); // 'data = tile object'
         if(self.canSelect(data)){
             var toggled = MatchFactory.toggleTile(data);
             if(toggled !== undefined) { $scope.$broadcast('tileToggled', { state: toggled, target: data }); }

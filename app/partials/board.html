@@ -1,8 +1,21 @@
-<div ng-show="!tiles">
-    This game has not started yet.
-</div>
-<div class="tile-container">
-    <div ng-repeat="tileData in tiles">
-        <tile tile="tileData"></tile>
+<div class="row">
+    <div class="col-sm-9">
+        <div ng-show="!vm.tiles">
+            This game has not started yet.
+        </div>
+        <div class="tile-container">
+            <div ng-repeat="tileData in vm.tiles">
+                <tile tile="tileData"></tile>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <h2>Matched tiles:</h2>
+        <div class="match" ng-repeat="match in vm.matches">
+            {{match}}
+            <div class="tile {{tile.tile.suit}} name-{{tile.tile.name}}">
+            </div>
+        </div>
+        <button class="btn btn-default" ng-click="gc.postMatch('5755855975c3971100c2c720', '5755855975c3971100c2c714')">POST match</button>
     </div>
 </div>

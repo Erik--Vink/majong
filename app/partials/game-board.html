@@ -4,14 +4,4 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-9">
-        <board tiles="gc.gameTiles"></board>
-    </div>
-    <div class="col-sm-3">
-        <h2>Matched tiles:</h2>
-        {{gc.gameMatches}}
-
-        <button class="btn btn-default" ng-click="gc.postMatch('5755855975c3971100c2c720', '5755855975c3971100c2c714')">POST match</button>
-    </div>
-</div>
+<board tiles="gc.gameTiles" matches="gc.gameMatches"></board>

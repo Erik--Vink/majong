@@ -6,8 +6,11 @@ module.exports = function(){
         restrict: 'E',
         templateUrl: 'partials/board.html',
         scope: {
-            tiles: '=tiles'
+            tiles: '=',
+            matches: '='
         },
-        controller: "BoardController"
+        controller: "BoardController",
+        controllerAs: 'vm',
+        bindToController: true
     };
 };
