@@ -3,8 +3,6 @@ var _ = require("underscore");
 module.exports = function(MatchFactory, $scope){
     var self = this;
 
-    self.board = $scope.tiles;
-
     self.SelectTile = function (tile) {
         if(self.canSelect(tile))
         {
@@ -13,39 +11,59 @@ module.exports = function(MatchFactory, $scope){
     };
 
     self.canSelect = function (tile) {
-        return (!self.topBlocked(tile) && (!self.leftBlocked(tile) || self.rightBlocked(tile)));
+        var freeTop = !self.isTopBlocked(tile);
+        var freeLeft = !self.isLeftBlocked(tile);
+        var freeRight = !self.isRightBlocked(tile);
+
+        console.log("Top: " + freeTop);
+        console.log("Left: " + freeLeft);
+        console.log("Right: " + freeRight);
+        return  (freeTop && freeLeft) || (freeTop && freeRight);
     };
 
-    self.topBlocked = function (tile) {
+    self.isTopBlocked = function (tile) {
         var layer = tile.zPos + 1;
         var xRange = [tile.xPos - 1, tile.xPos, tile.xPos + 1];
         var yRange = [tile.yPos - 1, tile.yPos, tile.yPos + 1];
 
         var surface = _.flatten(_.map(xRange, function (x) {
             return _.map(yRange, function (y) {
-               return {x: x, y: y};
+               return {x: x, y: y, z: layer};
             });
         }));
+        return self.hasTileAtAny(surface);
+    };
 
-        console.log(surface);
+    self.isLeftBlocked = function (tile) {
+        return self.ColumnBlocked(tile, -2);
+    };
 
-        return _.any(self.board, function (tile) {
-                _.any(surface, function (pos) {
-                    return (tile.zPos == layer && tile.xPos == pos.x && tile.yPos == poz.y);
-                })
+    self.isRightBlocked = function (tile) {
+        return self.ColumnBlocked(tile, 2);
+    };
+
+    self.ColumnBlocked = function(tile, xOffset)
+    {
+        var layer = tile.zPos;
+        var x = tile.xPos + xOffset;
+        var yRange = [tile.yPos - 1, tile.yPos, tile.yPos + 1];
+        var edge = _.map(yRange, function (y) {
+            return {x: x, y: y, z: layer};
+        });
+
+        return self.hasTileAtAny(edge);
+    };
+
+    self.hasTileAtAny = function (positions) {
+        return _.any($scope.tiles, function (tile) {
+            return _.any(positions, function (pos) {
+                return (tile.xPos == pos.x && tile.yPos == pos.y && tile.zPos == pos.z);
             });
-    };
-
-    self.leftBlocked = function (tile) {
-
-    };
-
-    self.rightBlocked = function (tile) {
-
+        });
     };
 
     $scope.$on('tileSelected', function (event, data) {
         console.log(data); // 'data = tile object'
-        self.canSelect(data);
+        console.log(self.canSelect(data));
     });
 };
