@@ -1,18 +1,18 @@
 var _ = require("underscore");
 
-module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFactory){
+module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFactory, SocketService){
     var self = this;
 
     self.init = function(){
         self.game = game;
+        self.isOwner = self.game.createdBy._id == AuthFactory.getUsername();
 
         GameService.getGameTilesMatched($stateParams.id, false).then(function(data){
             self.gameTiles = data.data;
         });
-
         getMatches();
 
-        self.isOwner = self.game.createdBy._id == AuthFactory.getUsername();
+        self.initSocket();
     };
 
     self.canJoinGame = function(game){
@@ -70,10 +70,9 @@ module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFac
     };
 
     self.initSocket = function(){
-        //stub todo
 
-        //var gameSocket = io.connect('http://mahjongmayhem.herokuapp.com?gameId='+game.id);
-        //
+        gameSocket = SocketService.createConnection(self.game._id);
+
         //gameSocket.on('connect', function () {
         //    gameSocket.emit('start');
         //});
@@ -82,11 +81,12 @@ module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFac
         //    console.log("started");
         //});
         //
-        //gameSocket.emit('match')
-        //
-        //gameSocket.on('match', function () {
-        //    console.log("started");
-        //});
+        //gameSocket.emit('match');
+
+        gameSocket.on('match', function (data) {
+            console.log(data);
+            console.log("match!");
+        });
     };
 
     var getMatches = function(){

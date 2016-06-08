@@ -7,6 +7,7 @@ require('angular-bootstrap-npm/dist/angular-bootstrap-tpls.min');
 var app = angular.module("app", [
     "app.core",
     "app.auth",
+    "app.socket",
     "app.game",
     "app.directives",
     "app.http",
@@ -16,6 +17,7 @@ var app = angular.module("app", [
 require("./config/core.module");
 require("./components/directives/directives.module");
 require("./components/auth/auth.module");
+require("./components/socket/socket.module");
 require("./components/game/game.module");
 require("./config/http.module");
 require("./components/board/board.module");

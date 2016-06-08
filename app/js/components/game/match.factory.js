@@ -1,6 +1,6 @@
 var _ = require('underscore');
 
-module.exports = function($http, apiUrl){
+module.exports = function($http, apiUrl, SocketService){
     var self = this;
     var urlBase = apiUrl+'games';
 
@@ -31,6 +31,8 @@ module.exports = function($http, apiUrl){
 
         return $http.post(urlBase+"/"+gameId+"/Tiles/matches",{tile1Id: tile1Id, tile2Id: tile2Id}).success(function(response){
             selectedTiles = [];
+            gameSocket = SocketService.createConnection(gameId);
+            gameSocket.emit('match');
         });
     };
 
