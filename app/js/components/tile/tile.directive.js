@@ -20,7 +20,8 @@ module.exports = function(){
             var tileDiv = $(element).find(".tile");
             tileDiv.css("left", scope.tile.xPos * 34 + (scope.tile.zPos * 4));
             tileDiv.css("top", scope.tile.yPos * 44 - (scope.tile.zPos * 4));
-            tileDiv.css("z-index", scope.tile.zPos + scope.tile.yPos + (scope.tile.zPos * scope.tile.yPos));
+            var zIndex = 100 + scope.tile.zPos *2 + (((scope.tile.yPos % 2 == 0)?scope.tile.yPos:scope.tile.yPos+1) + (scope.tile.zPos * scope.tile.yPos) - (scope.tile.xPos));
+            tileDiv.css("z-index", zIndex);
         }
     };
 };
