@@ -3,11 +3,8 @@ var _ = require('underscore');
 module.exports = function(GameService, $uibModal, $state, AuthFactory){
     var self = this;
 
-    //self.user = UserFactory.user;
     self.games = [];
-
     self.states = [];
-
     self.templates = [];
 
     self.params = {
@@ -95,14 +92,5 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
             }
         });
     };
-
-    //$http({
-    //    method: "GET",
-    //    url: "https://mahjongmayhem.herokuapp.com/Games"
-    //}).then(function (response) {
-    //    self.games = response.data;
-    //}, function (err) {
-    //    errors.push(err);
-    //});
 };
 

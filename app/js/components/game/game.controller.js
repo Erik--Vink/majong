@@ -1,6 +1,6 @@
 var _ = require("underscore");
 
-module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFactory, SocketService){
+module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFactory, SocketService, $uibModal){
     var self = this;
 
     self.init = function(){
@@ -73,19 +73,24 @@ module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFac
 
         gameSocket = SocketService.createConnection(self.game._id);
 
-        //gameSocket.on('connect', function () {
-        //    gameSocket.emit('start');
-        //});
-        //
-        //gameSocket.on('start', function () {
-        //    console.log("started");
-        //});
-        //
-        //gameSocket.emit('match');
-
-        gameSocket.on('match', function (data) {
-            console.log(data);
-            console.log("match!");
+        gameSocket.on('end', function () {
+            $uibModal.open({
+                templateUrl: 'partials/alert-modal.html',
+                controller: function($scope, $uibModalInstance, modalVars){
+                    $scope.modalVars = modalVars;
+                    $scope.ok = function() {
+                        $uibModalInstance.dismiss();
+                    };
+                },
+                resolve: {
+                    modalVars: function(){
+                        return {
+                            title:"This game has ended",
+                            description: "You can still watch the current gameboard or you can play another game."
+                        }
+                    }
+                }
+            });
         });
     };
 

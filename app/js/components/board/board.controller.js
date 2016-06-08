@@ -1,6 +1,6 @@
 var _ = require("underscore");
 
-module.exports = function(MatchFactory, $scope){
+module.exports = function(MatchFactory, $scope, SocketService){
     var self = this;
 
     self.isMatchValid = function(){
@@ -10,22 +10,7 @@ module.exports = function(MatchFactory, $scope){
     self.postMatch = function(){
         var selectedTiles = MatchFactory.getSelectedTiles();
 
-        MatchFactory.postMatch(self.gameId).success(function(response){
-
-            var tile1 = response[0];
-            var tile2 = response[1];
-
-            self.tiles = _.filter(self.tiles, function(tile){ return ((tile._id != tile1._id) && (tile._id != tile2._id)); });
-
-            self.matches.unshift({
-                "foundBy" : tile1.match.foundBy,
-                "foundOn": tile1.match.foundOn,
-                "tile1Id": tile1._id,
-                "tile1": selectedTiles[0].tile,
-                "tile2Id":tile2._id,
-                "tile2": selectedTiles[1].tile
-            });
-        });
+        MatchFactory.postMatch(self.gameId);
     };
 
     var canSelect = function (tile) {
@@ -77,8 +62,37 @@ module.exports = function(MatchFactory, $scope){
         });
     };
 
+    var addMatchToBoard = function(matches){
+        var tile1 = matches[0];
+        var tile2 = matches[1];
+
+        tile1.tile = _.find(self.tiles, function(tile){ return tile._id == tile1._id }).tile;
+        tile2.tile = _.find(self.tiles, function(tile){ return tile._id == tile2._id }).tile;
+
+        self.tiles = _.filter(self.tiles, function(tile){ return ((tile._id != tile1._id) && (tile._id != tile2._id)); });
+
+        self.matches.unshift({
+            "foundBy" : tile1.match.foundBy,
+            "foundOn": tile1.match.foundOn,
+            "tile1Id": tile1._id,
+            "tile1": tile1.tile,
+            "tile2Id":tile2._id,
+            "tile2": tile2.tile
+        });
+        $scope.$apply();
+    };
+
+    var initSocket = function(){
+        gameSocket = SocketService.createConnection(self.gameId);
+
+        gameSocket.on('match', function (response) {
+            addMatchToBoard(response);
+        });
+    };
+
     $scope.$watch('vm.gameId', function(newValue, oldValue){
         self.gameId = newValue;
+        initSocket();
     });
 
     $scope.$watch('vm.isMember', function(newValue, oldValue){
