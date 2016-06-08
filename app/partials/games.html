@@ -75,8 +75,21 @@
                     </tr>
                     <tr ng-repeat="game in glc.games ">
                         <td>
-                            {{game.createdBy._id}} - {{game.createdBy.name}}
-                            <span ng-show="glc.params.player">{{glc.params.player}} is a member</span>
+                            <div class="row">
+                                <div class="col-sm-12">{{game.createdBy._id}} - {{game.createdBy.name}}</div>
+                            </div>
+                            <div class="row" ng-show="game.foundPlayers.length > 0">
+                                <div class="col-sm-12 game-found-player">
+                                     <span>
+                                        <span ng-repeat="player in game.foundPlayers track by $index">
+                                            {{player._id}}<span ng-show="!$last">,</span>
+                                        </span>
+                                    </span>
+                                    <span ng-show="(game.players.length - game.foundPlayers.length) > 0">
+                                        and {{game.players.length - game.foundPlayers.length}} other member<span ng-show="game.players.length - game.foundPlayers.length >1">s</span>
+                                    </span>
+                                </div>
+                            </div>
                         </td>
                         <td>{{game.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{game.minPlayers}}</td>

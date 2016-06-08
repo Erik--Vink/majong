@@ -8,7 +8,8 @@ module.exports = function(){
         scope: {
             gameId: '=',
             tiles: '=',
-            matches: '='
+            matches: '=',
+            isMember: '='
         },
         controller: "BoardController",
         controllerAs: 'vm',

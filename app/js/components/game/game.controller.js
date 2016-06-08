@@ -30,7 +30,8 @@ module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFac
         return true;
     };
 
-    self.isMemberOfGame = function(game){
+    self.isMemberOfGame = function(){
+        var game = self.game;
         if( _.some(game.players, function(player){ return player._id == AuthFactory.getUsername()})){
             return true;
         }

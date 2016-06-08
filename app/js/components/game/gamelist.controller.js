@@ -84,14 +84,15 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
 
     self.getGames = function () {
         GameService.getGames(self.params).then(function (response) {
-            //if(self.params.player){
-            //    response.data.forEach(function(game){
-            //        _.find(game.players, function(player){ return player.name % 2 == 0; });
-            //    });
-            //}
-            //else{
+            if(self.params.player){
+                response.data.forEach(function(game){
+                    game.foundPlayers = _.filter(game.players, function(player){return player._id.toLowerCase().indexOf(self.params.player.toLowerCase()) > -1 && player.name != game.createdBy.name; });
+                });
                 self.games = response.data;
-            //}
+            }
+            else{
+                self.games = response.data;
+            }
         });
     };
 

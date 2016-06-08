@@ -34,6 +34,20 @@
                     </div>
                 </div>
             </div>
+            <div class="match" ng-show="!vm.matches">
+                <div class="match-tile-container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <div class="match-info-container">
+                                <div class="match-info">
+                                    No matches found yet.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <button class="btn btn-success match-button" ng-disabled="!vm.isMatchValid()" ng-click="vm.postMatch()" ng-if="vm.isMember">Submit your match</button>
     </div>
