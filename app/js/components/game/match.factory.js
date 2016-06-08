@@ -40,5 +40,9 @@ module.exports = function($http, apiUrl, SocketService){
       return selectedTiles;
     };
 
+    self.clearSelectedTiles = function(){
+        selectedTiles = [];
+    };
+
     return self;
 };

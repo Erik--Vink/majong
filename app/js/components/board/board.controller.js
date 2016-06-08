@@ -17,9 +17,11 @@ module.exports = function(MatchFactory, $scope, SocketService){
         var matching = hints();
         var a = matching[0].tile;
         var b = matching[0].matches[0];
-        MatchFactory.toggleTile(a);
-        MatchFactory.toggleTile(b);
-        self.postMatch();
+        MatchFactory.clearSelectedTiles();
+        var toggledA = MatchFactory.toggleTile(a);
+        if(toggledA !== undefined) { $scope.$broadcast('tileToggled', { state: toggledA, target: a }); }
+        var toggledB = MatchFactory.toggleTile(b);
+        if(toggledB !== undefined) { $scope.$broadcast('tileToggled', { state: toggledB, target: b }); }
     };
 
     var canSelect = function (tile) {
@@ -95,6 +97,7 @@ module.exports = function(MatchFactory, $scope, SocketService){
         gameSocket = SocketService.createConnection(self.gameId);
 
         gameSocket.on('match', function (response) {
+            MatchFactory.clearSelectedTiles();
             addMatchToBoard(response);
         });
     };
