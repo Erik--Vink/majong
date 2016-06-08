@@ -4,13 +4,22 @@ module.exports = function(MatchFactory, $scope, SocketService){
     var self = this;
 
     self.isMatchValid = function(){
-      return MatchFactory.isMatchValid();
+        return MatchFactory.isMatchValid();
     };
 
     self.postMatch = function(){
         var selectedTiles = MatchFactory.getSelectedTiles();
 
         MatchFactory.postMatch(self.gameId);
+    };
+
+    self.hint = function(){
+        var matching = hints();
+        var a = matching[0].tile;
+        var b = matching[0].matches[0];
+        MatchFactory.toggleTile(a);
+        MatchFactory.toggleTile(b);
+        self.postMatch();
     };
 
     var canSelect = function (tile) {
@@ -113,4 +122,40 @@ module.exports = function(MatchFactory, $scope, SocketService){
             if(toggled !== undefined) { $scope.$broadcast('tileToggled', { state: toggled, target: data }); }
         }
     });
+
+
+
+    // CHEATS
+
+    var selectable = function(){
+        var selectable = _.reduce(self.tiles, function (collector, tile) {
+            if(canSelect(tile)){ collector.push(tile); }
+            return collector;
+        }, []);
+        return selectable;
+    };
+
+    var same = function(tileA, tileB){ return tileA.xPos == tileB.xPos && tileA.yPos == tileB.yPos && tileA.zPos == tileB.zPos; };
+    var match = function (tileA, tileB) { return tileA.tile.suit == tileB.tile.suit && (tileA.tile.name == tileB.tile.name || (tileA.tile.matchesWholeSuit && tileB.tile.matchesWholeSuit)); };
+
+    var hints = function () {
+        var toMatch = selectable();
+        var matching = [];
+
+        _.forEach(selectable(), function (curr) {
+            var matches = _.reduce(toMatch, function (collector, tile) {
+                if(!same(tile, curr) && match(tile, curr)) { collector.push(tile); }
+                return collector;
+            }, []);
+
+            if(matches.length > 0) {
+                matching.push({ tile: curr, matches: matches});
+
+                toMatch = _.where(toMatch, function (tile) {
+                    return _.all(matches, function (matchedTile) { return !same(matchedTile, tile); });
+                });
+            }
+        });
+        return matching;
+    };
 };
