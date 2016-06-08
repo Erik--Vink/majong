@@ -11,11 +11,30 @@
     </div>
     <div class="col-sm-3">
         <h2>Matched tiles:</h2>
-        <div class="match" ng-repeat="match in vm.matches">
-            {{match}}
-            <div class="tile {{tile.tile.suit}} name-{{tile.tile.name}}">
+        <div class="matches-container">
+            <div class="match" ng-repeat="match in vm.matches">
+                <div class="match-tile-container">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="tile {{match.tile1.suit}} name-{{match.tile1.name}}">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tile {{match.tile2.suit}} name-{{match.tile2.name}}">
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="match-info-container">
+                                <div class="match-info">
+                                    <div class="match-foundby">{{match.foundBy}}</div>
+                                    <div class="match-foundon">{{match.foundOn | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <button class="btn btn-default" ng-click="gc.postMatch('5755855975c3971100c2c720', '5755855975c3971100c2c714')">POST match</button>
+        <button class="btn btn-success match-button" ng-disabled="!vm.isMatchValid()" ng-click="vm.postMatch()" ng-if="vm.isMember">Submit your match</button>
     </div>
 </div>

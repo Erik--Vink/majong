@@ -6,6 +6,7 @@ module.exports = function(){
         restrict: 'E',
         templateUrl: 'partials/board.html',
         scope: {
+            gameId: '=',
             tiles: '=',
             matches: '='
         },

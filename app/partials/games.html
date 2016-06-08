@@ -74,7 +74,10 @@
                         <th></th>
                     </tr>
                     <tr ng-repeat="game in glc.games ">
-                        <td>{{game.createdBy._id}} - {{game.createdBy.name}}</td>
+                        <td>
+                            {{game.createdBy._id}} - {{game.createdBy.name}}
+                            <span ng-show="glc.params.player">{{glc.params.player}} is a member</span>
+                        </td>
                         <td>{{game.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{game.minPlayers}}</td>
                         <td>{{game.maxPlayers}}</td>

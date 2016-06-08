@@ -1,3 +1,4 @@
+var _ = require("underscore");
 
 module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFactory){
     var self = this;
@@ -9,9 +10,7 @@ module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFac
             self.gameTiles = data.data;
         });
 
-        GameService.getGameMatches($stateParams.id).then(function(data){
-            self.gameMatches = data.data;
-        });
+        getMatches();
 
         self.isOwner = self.game.createdBy._id == AuthFactory.getUsername();
     };
@@ -29,6 +28,13 @@ module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFac
         }
 
         return true;
+    };
+
+    self.isMemberOfGame = function(game){
+        if( _.some(game.players, function(player){ return player._id == AuthFactory.getUsername()})){
+            return true;
+        }
+        return false;
     };
 
     self.canStartGame = function(game){
@@ -80,6 +86,41 @@ module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFac
         //gameSocket.on('match', function () {
         //    console.log("started");
         //});
-    }
+    };
+
+    var getMatches = function(){
+        var matches = [];
+        var matchedTileIds = [];
+
+        GameService.getGameMatches($stateParams.id).then(function(data){
+
+            data.data.forEach(function(match){
+                if(_.contains(matchedTileIds, match.match.otherTileId)){
+
+                    var existingMatchPosition;
+                    var existingMatch = _.find(matches, function(item, itemIndex){
+                        if(item.tile1Id == match.match.otherTileId){ existingMatchPosition = itemIndex; return item;}
+                    });
+                    existingMatch.tile2Id = match._id;
+                    existingMatch.tile2 = match.tile;
+                    if(existingMatchPosition){
+                        matches[existingMatchPosition] = existingMatch;
+                        matchedTileIds.push(match._id);
+                    }
+                }
+                else if(!_.contains(matchedTileIds, match._id)){
+                   matches.push({
+                       "foundBy" : match.match.foundBy,
+                       "foundOn": match.match.foundOn,
+                       "tile1Id": match._id,
+                       "tile1": match.tile
+                   });
+                   matchedTileIds.push(match._id);
+                }
+            });
+
+            self.gameMatches = matches;
+        });
+    };
 };
 

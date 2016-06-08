@@ -3,25 +3,40 @@ var _ = require("underscore");
 module.exports = function(MatchFactory, $scope){
     var self = this;
 
-    //self.SelectTile = function (tile) {
-    //    if(self.canSelect(tile))
-    //    {
-    //        MatchFactory.AddTile(tile);
-    //    }
-    //};
+    self.isMatchValid = function(){
+      return MatchFactory.isMatchValid();
+    };
 
-    self.canSelect = function (tile) {
-        var freeTop = !self.isTopBlocked(tile);
-        var freeLeft = !self.isLeftBlocked(tile);
-        var freeRight = !self.isRightBlocked(tile);
-        console.log("top" + freeTop);
-        console.log("left" + freeLeft);
-        console.log("right" + freeRight);
+    self.postMatch = function(){
+        var selectedTiles = MatchFactory.getSelectedTiles();
+
+        MatchFactory.postMatch(self.gameId).success(function(response){
+
+            var tile1 = response[0];
+            var tile2 = response[1];
+
+            self.tiles = _.filter(self.tiles, function(tile){ return ((tile._id != tile1._id) && (tile._id != tile2._id)); });
+
+            self.matches.unshift({
+                "foundBy" : tile1.match.foundBy,
+                "foundOn": tile1.match.foundOn,
+                "tile1Id": tile1._id,
+                "tile1": selectedTiles[0].tile,
+                "tile2Id":tile2._id,
+                "tile2": selectedTiles[1].tile
+            });
+        });
+    };
+
+    var canSelect = function (tile) {
+        var freeTop = !isTopBlocked(tile);
+        var freeLeft = !isLeftBlocked(tile);
+        var freeRight = !isRightBlocked(tile);
 
         return  (freeTop && freeLeft) || (freeTop && freeRight);
     };
 
-    self.isTopBlocked = function (tile) {
+    var isTopBlocked = function (tile) {
         var layer = tile.zPos + 1;
         var xRange = [tile.xPos - 1, tile.xPos, tile.xPos + 1];
         var yRange = [tile.yPos - 1, tile.yPos, tile.yPos + 1];
@@ -31,18 +46,18 @@ module.exports = function(MatchFactory, $scope){
                return {x: x, y: y, z: layer};
             });
         }));
-        return self.hasTileAtAny(surface);
+        return hasTileAtAny(surface);
     };
 
-    self.isLeftBlocked = function (tile) {
-        return self.ColumnBlocked(tile, -2);
+    var isLeftBlocked = function (tile) {
+        return ColumnBlocked(tile, -2);
     };
 
-    self.isRightBlocked = function (tile) {
-        return self.ColumnBlocked(tile, 2);
+    var isRightBlocked = function (tile) {
+        return ColumnBlocked(tile, 2);
     };
 
-    self.ColumnBlocked = function(tile, xOffset)
+    var ColumnBlocked = function(tile, xOffset)
     {
         var layer = tile.zPos;
         var x = tile.xPos + xOffset;
@@ -51,10 +66,10 @@ module.exports = function(MatchFactory, $scope){
             return {x: x, y: y, z: layer};
         });
 
-        return self.hasTileAtAny(edge);
+        return hasTileAtAny(edge);
     };
 
-    self.hasTileAtAny = function (positions) {
+    var hasTileAtAny = function (positions) {
         return _.any(self.tiles, function (tile) {
             return _.any(positions, function (pos) {
                 return (tile.xPos == pos.x && tile.yPos == pos.y && tile.zPos == pos.z);
@@ -62,12 +77,24 @@ module.exports = function(MatchFactory, $scope){
         });
     };
 
-    $scope.$watch('tiles', function(newValue, oldValue){
+    $scope.$watch('vm.gameId', function(newValue, oldValue){
+        self.gameId = newValue;
+    });
+
+    $scope.$watch('vm.isMember', function(newValue, oldValue){
+        self.isMember = newValue;
+    });
+
+    $scope.$watch('vm.tiles', function(newValue, oldValue){
         self.tiles = newValue;
     });
 
+    $scope.$watch('vm.matches', function(newValue, oldValue){
+        self.matches = newValue;
+    });
+
     $scope.$on('tileSelected', function (event, data) {
-        if(self.canSelect(data)){
+        if(canSelect(data)){
             var toggled = MatchFactory.toggleTile(data);
             if(toggled !== undefined) { $scope.$broadcast('tileToggled', { state: toggled, target: data }); }
         }

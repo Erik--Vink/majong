@@ -25,8 +25,17 @@ module.exports = function($http, apiUrl){
         return first.tile.suit == second.tile.suit && ((first.tile.matchesWholeSuit && second.tile.matchesWholeSuit) || first.tile.name == second.tile.name);
     };
 
-    self.postMatch = function (gameId, tile1Id, tile2Id) {
-        return $http.post(urlBase+"/"+gameId+"/Tiles/matches",{tile1Id: tile1Id, tile2Id: tile2Id});
+    self.postMatch = function (gameId) {
+        var tile1Id = selectedTiles[0]._id;
+        var tile2Id = selectedTiles[1]._id;
+
+        return $http.post(urlBase+"/"+gameId+"/Tiles/matches",{tile1Id: tile1Id, tile2Id: tile2Id}).success(function(response){
+            selectedTiles = [];
+        });
+    };
+
+    self.getSelectedTiles = function(){
+      return selectedTiles;
     };
 
     return self;

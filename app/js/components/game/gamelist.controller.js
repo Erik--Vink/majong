@@ -84,7 +84,14 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
 
     self.getGames = function () {
         GameService.getGames(self.params).then(function (response) {
-            self.games = response.data;
+            //if(self.params.player){
+            //    response.data.forEach(function(game){
+            //        _.find(game.players, function(player){ return player.name % 2 == 0; });
+            //    });
+            //}
+            //else{
+                self.games = response.data;
+            //}
         });
     };
 
