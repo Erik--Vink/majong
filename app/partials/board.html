@@ -50,6 +50,7 @@
 
         </div>
         <button class="btn btn-success match-button" ng-disabled="!vm.isMatchValid()" ng-click="vm.postMatch()" ng-if="vm.isMember">Submit your match</button>
-        <button class="btn btn-danger match-button" ng-click="vm.hint()" ng-if="vm.isMember">Hint</button>
+        <button class="btn btn-warning match-button" ng-click="vm.hint()" ng-if="vm.isMember">Hint</button>
+        <button class="btn btn-danger match-button" ng-click="vm.solve()" ng-if="vm.isMember">Solve</button>
     </div>
 </div>

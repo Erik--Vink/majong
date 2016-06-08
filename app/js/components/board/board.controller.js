@@ -1,6 +1,6 @@
 var _ = require("underscore");
 
-module.exports = function(MatchFactory, $scope, SocketService){
+module.exports = function(MatchFactory, $scope, SocketService, $interval){
     var self = this;
 
     self.isMatchValid = function(){
@@ -11,6 +11,11 @@ module.exports = function(MatchFactory, $scope, SocketService){
         var selectedTiles = MatchFactory.getSelectedTiles();
 
         MatchFactory.postMatch(self.gameId);
+    };
+
+    self.solve = function(){
+        self.solving = true;
+        solveOne();
     };
 
     self.hint = function(){
@@ -114,6 +119,9 @@ module.exports = function(MatchFactory, $scope, SocketService){
 
     $scope.$watch('vm.matches', function(newValue, oldValue){
         self.matches = newValue;
+
+        // CHEATS
+        if(self.solving && self.hints().length > 0) { solveOne(); }
     });
 
     $scope.$on('tileSelected', function (event, data) {
@@ -122,11 +130,8 @@ module.exports = function(MatchFactory, $scope, SocketService){
             if(toggled !== undefined) { $scope.$broadcast('tileToggled', { state: toggled, target: data }); }
         }
     });
-
-
-
+    
     // CHEATS
-
     var selectable = function(){
         var selectable = _.reduce(self.tiles, function (collector, tile) {
             if(canSelect(tile)){ collector.push(tile); }
@@ -157,5 +162,14 @@ module.exports = function(MatchFactory, $scope, SocketService){
             }
         });
         return matching;
+    };
+
+    var solveOne = function () {
+        var matching = hints();
+        var a = matching[0].tile;
+        var b = matching[0].matches[0];
+        MatchFactory.toggleTile(a);
+        MatchFactory.toggleTile(b);
+        self.postMatch();
     };
 };
