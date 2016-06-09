@@ -4,12 +4,12 @@
             This game has not started yet.
         </div>
         <div class="tile-container">
-            <div ng-repeat="tileData in vm.tiles">
+            <div ng-repeat="tileData in vm.tiles | matchfilter:vm.selectedMatchTimestamp">
                 <tile tile="tileData"></tile>
             </div>
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-3" ng-if="vm.tiles && vm.type =='playing'">
         <h2>Matched tiles:</h2>
         <div class="matches-container">
             <div class="match" ng-repeat="match in vm.matches">
@@ -52,5 +52,46 @@
         <button class="btn btn-success match-button" ng-disabled="!vm.isMatchValid()" ng-click="vm.postMatch()" ng-if="vm.isMember">Submit your match</button>
         <button class="btn btn-warning match-button" ng-click="vm.hint()" ng-if="vm.isMember">Hint</button>
         <button class="btn btn-danger match-button" ng-click="vm.solve()" ng-if="vm.isMember">Solve</button>
+    </div>
+    <div class="col-sm-3" ng-if="vm.tiles && vm.type =='history'">
+        <h2>Match history</h2>
+        <div class="matches-container">
+            <div class="match pointer" ng-repeat="match in vm.matches" ng-click="vm.highlightMatch(match)">
+                <div class="match-tile-container">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="tile {{match.tile1.suit}} name-{{match.tile1.name}}">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tile {{match.tile2.suit}} name-{{match.tile2.name}}">
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="match-info-container">
+                                <div class="match-info">
+                                    <div class="match-foundby">{{match.foundBy}}</div>
+                                    <div class="match-foundon">{{match.foundOn | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="match" ng-show="!vm.matches">
+                <div class="match-tile-container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <div class="match-info-container">
+                                <div class="match-info">
+                                    No matches found yet.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>

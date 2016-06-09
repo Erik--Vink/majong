@@ -1,13 +1,13 @@
 var _ = require("underscore");
 
-module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFactory, SocketService, $uibModal){
+module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFactory, SocketService, $uibModal, $state){
     var self = this;
 
     self.init = function(){
         self.game = game;
         self.isOwner = self.game.createdBy._id == AuthFactory.getUsername();
 
-        GameService.getGameTilesMatched($stateParams.id, false).then(function(data){
+        GameService.getGameTiles($stateParams.id).then(function(data){
             self.gameTiles = data.data;
         });
         getMatches();
@@ -59,7 +59,7 @@ module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFac
 
     self.startGame = function(game){
         GameService.startGame(game).then(function(response){
-            self.game = response.data;
+            $state.reload();
         }, function(error){
             self.errorMessage = error.data.message;
         });

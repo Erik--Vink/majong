@@ -9,6 +9,7 @@
 }
 
 .nav-tabs>li{
+  cursor: pointer !important;
   >a{
     color:black;
   }
@@ -65,4 +66,8 @@
 
 .game-found-player{
   font-size: 12px;
+}
+
+.pointer{
+  cursor: pointer!important;
 }

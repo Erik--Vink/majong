@@ -6,7 +6,8 @@ module.exports = function(){
             gameId: '=',
             tiles: '=',
             matches: '=',
-            isMember: '='
+            isMember: '=',
+            type: '='
         },
         controller: "BoardController",
         controllerAs: 'vm',
