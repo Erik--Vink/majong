@@ -4,3 +4,4 @@ dist/
 coverage/
 .sass-cache/17479fd03da0b6fd2e3e4b39c72416450a1cda17/app.scssc
 .sass-cache/
+npm-debug.log
