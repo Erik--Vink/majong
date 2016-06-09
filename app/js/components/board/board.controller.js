@@ -1,6 +1,6 @@
 var _ = require("underscore");
 
-module.exports = function(MatchFactory, $scope, SocketService, $interval){
+module.exports = function(MatchFactory, $scope, SocketService, $filter){
     var self = this;
 
     self.isMatchValid = function(){
@@ -16,6 +16,10 @@ module.exports = function(MatchFactory, $scope, SocketService, $interval){
     self.solve = function(){
         self.solving = true;
         solveOne();
+    };
+
+    self.highlightMatch = function(match){
+        self.selectedMatchTimestamp = match.foundOn;
     };
 
     self.hint = function(){
@@ -112,6 +116,10 @@ module.exports = function(MatchFactory, $scope, SocketService, $interval){
         initSocket();
     });
 
+    $scope.$watch('vm.type', function(newValue, oldValue){
+        self.type = newValue;
+    });
+
     $scope.$watch('vm.isMember', function(newValue, oldValue){
         self.isMember = newValue;
     });
@@ -136,7 +144,8 @@ module.exports = function(MatchFactory, $scope, SocketService, $interval){
     
     // CHEATS
     var selectable = function(){
-        var selectable = _.reduce(self.tiles, function (collector, tile) {
+        var tiles = $filter('matchfilter')(self.tiles);
+        var selectable = _.reduce(tiles, function (collector, tile) {
             if(canSelect(tile)){ collector.push(tile); }
             return collector;
         }, []);

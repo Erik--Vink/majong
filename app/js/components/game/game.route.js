@@ -1,15 +1,105 @@
 module.exports = function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.when('/games/:id', '/games/:id/details');
+    $urlRouterProvider.when('/games', '/games/all');
+    $urlRouterProvider.when('/game/:id', '/game/:id/board');
 
     $stateProvider
         .state('games', {
             url: '/games',
+            templateUrl: 'partials/games-master.html'
+        })
+        .state('games.all', {
+            url: '/all',
             templateUrl: 'partials/games.html',
-            controller: 'GamelistController as glc'
+            controller: 'GamelistController as glc',
+            resolve: {
+                showFilter: function(){
+                    return true;
+                },
+                params: function(){
+                    return {
+                        createdBy : null,
+                        player: null,
+                        gameTemplate: null,
+                        state: null
+                    };
+                }
+            }
+        })
+        .state('games.mygames', {
+            url: '/mygames',
+            templateUrl: 'partials/games.html',
+            controller: 'GamelistController as glc',
+            resolve: {
+                showFilter: function(){
+                    return false;
+                },
+                params: function(AuthFactory){
+                    return {
+                        createdBy : null,
+                        player: AuthFactory.getUsername(),
+                        gameTemplate: null,
+                        state: null
+                    };
+                }
+            }
+        })
+        .state('games.history', {
+            url: '/history',
+            templateUrl: 'partials/games.html',
+            controller: 'GamelistController as glc',
+            resolve: {
+                showFilter: function(){
+                    return false;
+                },
+                params: function(){
+                    return {
+                        createdBy : null,
+                        player: null,
+                        gameTemplate: null,
+                        state: 'finished'
+                    };
+                }
+            }
+        })
+        .state('games.open', {
+            url: '/open',
+            templateUrl: 'partials/games.html',
+            controller: 'GamelistController as glc',
+            resolve: {
+                showFilter: function(){
+                    return false;
+                },
+                params: function(){
+                    return {
+                        createdBy : null,
+                        player: null,
+                        gameTemplate: null,
+                        state: 'open'
+                    };
+                }
+            }
+        })
+        .state('games.spectate', {
+            url: '/spectate',
+            templateUrl: 'partials/games.html',
+            controller: 'GamelistController as glc',
+            resolve: {
+                showFilter: function(){
+                    return false;
+                },
+                params: function(){
+                    return {
+                        createdBy : null,
+                        player: null,
+                        gameTemplate: null,
+                        state: 'playing'
+                    };
+                }
+            }
         })
         .state('game', {
-            url: "/games/:id",
+            url: "/game/:id",
             templateUrl: 'partials/game.html',
             controller: 'GameController as gc',
             params: {'id': '', 'game': null},
@@ -37,6 +127,10 @@ module.exports = function($stateProvider, $urlRouterProvider) {
         .state('game.details', {
             url: '/details',
             templateUrl: 'partials/game-details.html'
+        })
+        .state('game.history', {
+            url: '/boardhistory',
+            templateUrl: 'partials/game-board-history.html'
         });
 
 };

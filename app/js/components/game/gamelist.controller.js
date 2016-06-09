@@ -1,23 +1,17 @@
 var _ = require('underscore');
 
-module.exports = function(GameService, $uibModal, $state, AuthFactory){
+module.exports = function($scope, GameService, $uibModal, $state, AuthFactory, params, showFilter, $timeout){
     var self = this;
 
-    self.games = [];
-    self.states = [];
-    self.templates = [];
-
-    self.params = {
-        createdBy : null,
-        player: null,
-        gameTemplate: null,
-        state: null
-    };
-
     self.init = function(){
-        GameService.getGames().then(function(response){
-            self.games = response.data;
-        });
+        self.games = [];
+        self.states = [];
+        self.templates = [];
+        self.params = params;
+        self.showFilter = showFilter;
+
+        self.getGames(self.params);
+
         GameService.getGameStates().then(function(response){
             self.states = _.map(response.data, function (state) {
                 return state.state
@@ -30,6 +24,19 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
             });
             self.templates.push(null);
         });
+    };
+
+    self.switchTab = function(state){
+
+        switch(state){
+            case 'all':
+                $state.go('games.'+state, {showFilter:true}, { reload: true});
+                return;
+            case 'history':
+                $state.go('games.'+state, {showFilter:false}, { reload: true});
+                return;
+        }
+
     };
 
     self.createGame = function(){
@@ -91,6 +98,16 @@ module.exports = function(GameService, $uibModal, $state, AuthFactory){
                 self.games = response.data;
             }
         });
+    };
+
+    var timeout;
+    self.getGamesDelayed = function(){
+        if (timeout != null) {
+            $timeout.cancel(timeout);
+        }
+        timeout = $timeout(function() {
+            self.getGames();
+        }, 500);
     };
 };
 

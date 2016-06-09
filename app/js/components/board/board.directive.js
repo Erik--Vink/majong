@@ -1,6 +1,3 @@
-/**
- * Created by Nevernown on 6-6-2016.
- */
 module.exports = function(){
     return {
         restrict: 'E',
@@ -9,7 +6,8 @@ module.exports = function(){
             gameId: '=',
             tiles: '=',
             matches: '=',
-            isMember: '='
+            isMember: '=',
+            type: '='
         },
         controller: "BoardController",
         controllerAs: 'vm',
