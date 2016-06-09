@@ -1,106 +1,104 @@
 <div ng-init="glc.init()">
-    <div class="container-white">
-        <div class="row">
-            <div class="col-sm-12">
-                <h1>Gamelist</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div ng-show="glc.errorMessage" class="alert alert-danger">
-                    <span>{{glc.errorMessage}}</span>
-                </div>
 
-                <div ng-show="glc.successMessage" class="alert alert-success">
-                    <span>{{glc.successMessage}}</span>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Gamelist</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div ng-show="glc.errorMessage" class="alert alert-danger">
+                <span>{{glc.errorMessage}}</span>
+            </div>
+
+            <div ng-show="glc.successMessage" class="alert alert-success">
+                <span>{{glc.successMessage}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 col-sm-offset-10">
+            <a class="btn btn-success" ng-click="glc.createGame()" style="float:right; margin-bottom: 10px;"><span class="fa fa-plus"></span> New game</a>
+        </div>
+    </div>
+    <div class="filter-container form-horizontal" ng-if="glc.showFilter">
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-3">
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Owner:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="glc.params.createdBy" ng-change="glc.getGamesDelayed()"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Player:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="glc.params.player" ng-change="glc.getGamesDelayed()"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Template:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" ng-model="glc.params.gameTemplate" ng-options="template for template in glc.templates" ng-change="glc.getGames()"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label col-sm-4">State:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" ng-model="glc.params.state" ng-options="state for state in glc.states" ng-change="glc.getGames()"></select>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-2 col-sm-offset-10">
-                <a class="btn btn-success" ng-click="glc.createGame()" style="float:right; margin-bottom: 10px;"><span class="fa fa-plus"></span> New game</a>
-            </div>
-        </div>
-        <form ng-submit="glc.getGames()" class="filter-container form-horizontal">
-            <div class="row">
-                <div class="col-sm-2 col-sm-offset-3">
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">Owner:</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="glc.params.createdBy"/>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table">
+                <tr>
+                    <th>Owner</th>
+                    <th>Created on</th>
+                    <th>Min players</th>
+                    <th>Max players</th>
+                    <th>Current players</th>
+                    <th>Template</th>
+                    <th>State</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="game in glc.games ">
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-12">{{game.createdBy._id}} - {{game.createdBy.name}}</div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">Player:</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="glc.params.player"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">Template:</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" ng-model="glc.params.gameTemplate" ng-options="template for template in glc.templates"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">State:</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" ng-model="glc.params.state" ng-options="state for state in glc.states"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-1">
-                    <button class="btn btn-primary" type="submit" style="float:right">Filter</button>
-                </div>
-            </div>
-        </form>
-        <div class="row">
-            <div class="col-sm-12">
-                <table class="table">
-                    <tr>
-                        <th>Owner</th>
-                        <th>Created on</th>
-                        <th>Min players</th>
-                        <th>Max players</th>
-                        <th>Current players</th>
-                        <th>State</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <tr ng-repeat="game in glc.games ">
-                        <td>
-                            <div class="row">
-                                <div class="col-sm-12">{{game.createdBy._id}} - {{game.createdBy.name}}</div>
-                            </div>
-                            <div class="row" ng-show="game.foundPlayers.length > 0">
-                                <div class="col-sm-12 game-found-player">
-                                     <span>
-                                        <span ng-repeat="player in game.foundPlayers track by $index">
-                                            {{player._id}}<span ng-show="!$last">,</span>
+                        <div class="row" ng-show="game.foundPlayers.length > 0">
+                            <div class="col-sm-12 game-found-player">
+                                         <span>
+                                            <span ng-repeat="player in game.foundPlayers track by $index">
+                                                {{player._id}}<span ng-show="!$last">,</span>
+                                            </span>
                                         </span>
-                                    </span>
-                                    <span ng-show="(game.players.length - game.foundPlayers.length) > 0">
-                                        and {{game.players.length - game.foundPlayers.length}} other member<span ng-show="game.players.length - game.foundPlayers.length >1">s</span>
-                                    </span>
-                                </div>
+                                        <span ng-show="(game.players.length - game.foundPlayers.length) > 0">
+                                            and {{game.players.length - game.foundPlayers.length}} other member<span ng-show="game.players.length - game.foundPlayers.length >1">s</span>
+                                        </span>
                             </div>
-                        </td>
-                        <td>{{game.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                        <td>{{game.minPlayers}}</td>
-                        <td>{{game.maxPlayers}}</td>
-                        <td>{{game.players.length}}</td>
-                        <td>{{game.state}}</td>
-                        <td><a class="btn btn-default" ui-sref="game({id:game.id, game:game})">Details</a></td>
-                        <td><button class="btn btn-default" ng-click="glc.joinGame(game)" ng-disabled="!glc.canJoinGame(game)">Join</button></td>
-                    </tr>
-                </table>
-            </div>
+                        </div>
+                    </td>
+                    <td>{{game.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{game.minPlayers}}</td>
+                    <td>{{game.maxPlayers}}</td>
+                    <td>{{game.players.length}}</td>
+                    <td>{{game.gameTemplate.id}}</td>
+                    <td>{{game.state}}</td>
+                    <td><a class="btn btn-default" ui-sref="game({id:game.id, game:game})">Details</a></td>
+                    <td><button class="btn btn-default" ng-click="glc.joinGame(game)" ng-disabled="!glc.canJoinGame(game)">Join</button></td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

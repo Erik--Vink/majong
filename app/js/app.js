@@ -22,6 +22,15 @@ require("./components/game/game.module");
 require("./config/http.module");
 require("./components/board/board.module");
 
+app.config(function($provide) {
+    $provide.decorator('$state', function($delegate) {
+        $delegate.reinit = function() {
+            this.transitionTo(this.current, this.$current.params, { reload: true, inherit: true, notify: true });
+        };
+        return $delegate;
+    });
+});
+
 app.run(function (AuthFactory, $state, $rootScope) {
     $rootScope.$on("$stateChangeStart",
         function (event, toState, toParams, fromState, fromParams) {
