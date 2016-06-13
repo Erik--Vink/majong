@@ -34,9 +34,15 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter){
     };
 
     var canSelect = function (tile) {
+        // console.log(tile);
+
         var freeTop = !isTopBlocked(tile);
         var freeLeft = !isLeftBlocked(tile);
         var freeRight = !isRightBlocked(tile);
+
+        // console.log("T: " + freeTop);
+        // console.log("L: " + freeLeft);
+        // console.log("R: " + freeRight);
 
         return  (freeTop && freeLeft) || (freeTop && freeRight);
     };
@@ -75,7 +81,8 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter){
     };
 
     var hasTileAtAny = function (positions) {
-        return _.any(self.tiles, function (tile) {
+        var tiles = $filter('matchfilter')(self.tiles);
+        return _.any(tiles, function (tile) {
             return _.any(positions, function (pos) {
                 return (tile.xPos == pos.x && tile.yPos == pos.y && tile.zPos == pos.z);
             });
