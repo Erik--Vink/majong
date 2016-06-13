@@ -28,17 +28,20 @@ module.exports = function(){
                         scope.spacingX = 34;
                         scope.spacingY = 44;
                         scope.negativeSpacingY = 0;
+                        scope.sideSpacingX = 4;
+                        scope.sideSpacingY = 4;
                         break;
                     case 'Greenish' :
-                        console.log("green");
                         scope.spacingX = 30;
                         scope.spacingY = 45;
                         scope.negativeSpacingY = 100;
+                        scope.sideSpacingX = 8;
+                        scope.sideSpacingY = 8;
                         break;
                 }
                 var tileDiv = $(element).find(".tile");
-                tileDiv.css("left", scope.tile.xPos * scope.spacingX + (scope.tile.zPos * 4));
-                tileDiv.css("top", scope.tile.yPos * scope.spacingY - (scope.tile.zPos * 4) - scope.negativeSpacingY);
+                tileDiv.css("left", scope.tile.xPos * scope.spacingX + (scope.tile.zPos * scope.sideSpacingX));
+                tileDiv.css("top", scope.tile.yPos * scope.spacingY - (scope.tile.zPos * scope.sideSpacingY) - scope.negativeSpacingY);
             },true);
 
             var tileDiv = $(element).find(".tile");
