@@ -1,6 +1,6 @@
 var _ = require("underscore");
 
-module.exports = function(MatchFactory, $scope, SocketService, $filter){
+module.exports = function(MatchFactory, $scope, SocketService, $filter, $scope){
     var self = this;
 
     self.isMatchValid = function(){
@@ -8,8 +8,6 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter){
     };
 
     self.postMatch = function(){
-        var selectedTiles = MatchFactory.getSelectedTiles();
-
         MatchFactory.postMatch(self.gameId);
     };
 
@@ -34,15 +32,10 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter){
     };
 
     var canSelect = function (tile) {
-        // console.log(tile);
 
         var freeTop = !isTopBlocked(tile);
         var freeLeft = !isLeftBlocked(tile);
         var freeRight = !isRightBlocked(tile);
-
-        // console.log("T: " + freeTop);
-        // console.log("L: " + freeLeft);
-        // console.log("R: " + freeRight);
 
         return  (freeTop && freeLeft) || (freeTop && freeRight);
     };
@@ -96,17 +89,35 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter){
         tile1.tile = _.find(self.tiles, function(tile){ return tile._id == tile1._id }).tile;
         tile2.tile = _.find(self.tiles, function(tile){ return tile._id == tile2._id }).tile;
 
-        self.tiles = _.filter(self.tiles, function(tile){ return ((tile._id != tile1._id) && (tile._id != tile2._id)); });
-
-        self.matches.unshift({
-            "foundBy" : tile1.match.foundBy,
-            "foundOn": tile1.match.foundOn,
-            "tile1Id": tile1._id,
-            "tile1": tile1.tile,
-            "tile2Id":tile2._id,
-            "tile2": tile2.tile
+        var existingMatch = _.find(self.matches, function(item, itemIndex){
+            if(item.tile1Id == tile1._id){return item;}
         });
-        $scope.$apply();
+
+        if(!existingMatch){
+            self.matches.unshift({
+                "foundBy" : tile1.match.foundBy,
+                "foundOn": tile1.match.foundOn,
+                "tile1Id": tile1._id,
+                "tile1": tile1.tile,
+                "tile2Id":tile2._id,
+                "tile2": tile2.tile
+            });
+
+            var tile1Position = null;
+            _.find(self.tiles, function(item, itemIndex){
+                if(item._id == tile1._id){ tile1Position = itemIndex; return item;}
+            });
+
+            var tile2Position = null;
+            _.find(self.tiles, function(item, itemIndex){
+                if(item._id == tile2._id){ tile2Position = itemIndex; return item;}
+            });
+
+            self.tiles[tile1Position] = tile1;
+            self.tiles[tile2Position] = tile2;
+
+            $scope.$apply();
+        }
     };
 
     var initSocket = function(){
@@ -143,7 +154,7 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter){
     });
 
     $scope.$on('tileSelected', function (event, data) {
-        if(canSelect(data)){
+        if(self.type =='playing' && canSelect(data)){
             var toggled = MatchFactory.toggleTile(data);
             if(toggled !== undefined) { $scope.$broadcast('tileToggled', { state: toggled, target: data }); }
         }
@@ -191,4 +202,8 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter){
         MatchFactory.toggleTile(b);
         self.postMatch();
     };
+
+    $scope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
+        MatchFactory.clearSelectedTiles();
+    });
 };

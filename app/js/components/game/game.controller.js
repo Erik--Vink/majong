@@ -124,7 +124,6 @@ module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFac
                    matchedTileIds.push(match._id);
                 }
             });
-
             self.gameMatches = matches;
         });
     };
