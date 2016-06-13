@@ -14,7 +14,7 @@
       height:90px;
       display: block;
       position: relative;
-      border: 1px solid $color_teal;
+      border: 1px solid $color_secondary;
       .tile{
         position:relative;
         -ms-transform: scale(0.5,0.5); /* IE 9 */
@@ -46,7 +46,7 @@
 
   height:87px;
   width:68px;
-  background: url(../assets/Mahjong_sprite_sheet_2.png);
+  background: url(../../assets/Mahjong_sprite_sheet_2.png);
   position: absolute;
   -webkit-box-shadow: -5px 7px 5px 0px rgba(0,0,0,0.55);
   -moz-box-shadow: -5px 7px 5px 0px rgba(0,0,0,0.55);

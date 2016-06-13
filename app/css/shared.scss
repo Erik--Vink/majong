@@ -1,5 +1,9 @@
+body{
+  color: $color_text;
+}
+
 .container-white{
-  background: $color_white;
+  background: $color-background;
   margin:0 50px;
   padding:0 30px;
 }
@@ -21,31 +25,31 @@
 }
 
 .btn-success{
-  background: $color_green !important;
+  background: $color-success !important;
   border-radius: 0 !important;
 
   &:hover{
-    background: lighten($color_green, 5) !important;
+    background: lighten($color-success, 5) !important;
   }
 }
 
 .btn-default{
-  background: $color_teal !important;
+  background: $color-secondary !important;
   border-radius: 0 !important;
   color:$color_white !important;
 
   &:hover{
-    background: lighten($color_teal, 5) !important;
+    background: lighten($color_secondary, 5) !important;
   }
 }
 
 .btn-primary{
-  background: $color_blue !important;
+  background: $color_primary !important;
   border-radius: 0 !important;
   color:$color_white !important;
 
   &:hover{
-    background: lighten($color_blue, 5) !important;
+    background: lighten($color_primary, 5) !important;
   }
 }
 
@@ -70,4 +74,8 @@
 
 .pointer{
   cursor: pointer!important;
+}
+
+.modal-dialog{
+  color:black;
 }

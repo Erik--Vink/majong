@@ -59,10 +59,10 @@ body, html {
 }
 
 .form-signin .form-control:focus {
-  border-color: $color_teal;
+  border-color: $color_secondary;
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px $color_teal;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px $color_teal;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px $color_secondary;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px $color_secondary;
 }
 
 .btn-container{
@@ -72,7 +72,7 @@ body, html {
 
   .btn.btn-signin {
     display: table-cell;
-    background-color: $color_teal;
+    background-color: $color_secondary;
     padding: 0px;
     font-weight: 700;
     font-size: 14px;
