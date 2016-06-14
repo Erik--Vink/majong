@@ -23,6 +23,11 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter, $scope){
         self.selectedMatchTimestamp = match.foundOn;
     };
 
+    $scope.$on('themeChanged', function(newValue){
+        console.log("receiving");
+        //$scope.selectedTheme = newValue;
+    });
+
     self.hint = function(){
         var matching = hints();
         var a = matching[0].tile;
