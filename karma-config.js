@@ -10,6 +10,8 @@ module.exports = function (config) {
             'app/**/*.js',
             // Angular-mocks moet na app.js geladen worden omdat daar angular in zit
             'node_modules/angular-mocks/angular-mocks.js',
+            'node_modules/underscore/underscore-min.js',
+            'http://mahjongmayhem.herokuapp.com/socket.io/socket.io.js',
             'test/*.spec.js'
         ],
 

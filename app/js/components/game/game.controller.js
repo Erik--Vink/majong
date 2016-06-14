@@ -7,7 +7,7 @@ module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFac
         self.game = game;
         self.isOwner = self.game.createdBy._id == AuthFactory.getUsername();
 
-        GameService.getGameTiles($stateParams.id).then(function(data){
+        GameService.getGameTiles(game.id).then(function(data){
             self.gameTiles = data.data;
         });
         getMatches();
@@ -98,7 +98,7 @@ module.exports = function(GameService, $stateParams, game, AuthFactory, MatchFac
         var matches = [];
         var matchedTileIds = [];
 
-        GameService.getGameMatches($stateParams.id).then(function(data){
+        GameService.getGameMatches(game.id).then(function(data){
 
             data.data.forEach(function(match){
                 if(_.contains(matchedTileIds, match.match.otherTileId)){

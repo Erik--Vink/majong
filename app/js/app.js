@@ -25,8 +25,6 @@ require("./components/board/board.module");
 require("./components/theme/theme.module");
 
 app.run(function (AuthFactory, $state, $rootScope, ThemeService) {
-    console.log("run");
-    console.log(AuthFactory.isLoggedIn());
     $rootScope.$on("$stateChangeStart",
         function (event, toState, toParams, fromState, fromParams) {
             if(!AuthFactory.isLoggedIn() && toState.name != 'login' && toState.name != 'authcallback'){
