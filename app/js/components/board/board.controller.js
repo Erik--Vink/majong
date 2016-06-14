@@ -2,6 +2,7 @@ var _ = require("underscore");
 
 module.exports = function(MatchFactory, $scope, SocketService, $filter, $scope){
     var self = this;
+    self.solving = false;
 
     self.isMatchValid = function(){
         return MatchFactory.isMatchValid();
@@ -12,8 +13,10 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter, $scope){
     };
 
     self.solve = function(){
-        self.solving = true;
-        solveOne();
+        if(hints().length > 0){
+            self.solving = true;
+            solveOne();
+        }
     };
 
     self.highlightMatch = function(match){
@@ -150,7 +153,11 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter, $scope){
         self.matches = newValue;
 
         // CHEATS
-        if(self.solving && self.hints().length > 0) { solveOne(); }
+        console.log("solving: " + self.solving + " => " + hints().length);
+        if(self.solving && hints().length > 0) {
+            console.log("next.");
+            solveOne();
+        }
     });
 
     $scope.$on('tileSelected', function (event, data) {
