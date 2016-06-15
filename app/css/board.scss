@@ -1,0 +1,34 @@
+.tile-container{
+  display: block;
+  position: relative;
+  background:$color_background_board;
+  height: 100%;
+}
+
+.matches-container{
+  max-height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  .match{
+    .match-tile-container{
+      height:90px;
+      display: block;
+      position: relative;
+      border: 1px solid $color_secondary;
+    }
+    .match-info-container{
+      display: table;
+      height:90px;
+      .match-info{
+        display: table-cell;
+        vertical-align: middle;
+        .match-foundby{
+          font-weight: bold;
+        }
+        .match-foundon{
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
