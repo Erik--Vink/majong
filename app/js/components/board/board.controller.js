@@ -18,6 +18,7 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter){
 
     self.solve = function(){
         if(hints().length > 0 && !self.solving){
+            MatchFactory.clearSelectedTiles();
             self.solving = true;
             solveOne();
         }
