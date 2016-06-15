@@ -28,7 +28,6 @@ app.run(function (AuthFactory, $state, $rootScope, ThemeService) {
     $rootScope.$on("$stateChangeStart",
         function (event, toState, toParams, fromState, fromParams) {
             if(!AuthFactory.isLoggedIn() && toState.name != 'login' && toState.name != 'authcallback'){
-                console.log("redirect to login");
                 $state.transitionTo('login');
                 event.preventDefault();
             }

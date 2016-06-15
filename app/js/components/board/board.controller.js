@@ -1,6 +1,6 @@
 var _ = require("underscore");
 
-module.exports = function(MatchFactory, $scope, SocketService, $filter){
+module.exports = function(MatchFactory, $scope, SocketService, $filter, $rootScope){
     var self = this;
     self.solving = false;
 
@@ -162,6 +162,10 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter){
     $scope.$watch('vm.matches', function(newValue, oldValue){
         self.matches = newValue;
     });
+
+    $rootScope.$watch('selectedTheme', function(newValue){
+        $scope.selectedTheme = newValue;
+    },true);
 
     $scope.$on('tileSelected', function (event, data) {
         if(self.type =='playing' && canSelect(data)){

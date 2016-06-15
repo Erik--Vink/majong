@@ -38,7 +38,8 @@ module.exports = function(grunt) {
         sass: {
             dist: {
                 options: {
-                    style: 'expanded'
+                    style: 'expanded',
+                    compass:true
                 },
                 files: {
                     'dist/css/themes/theme1.css' : 'app/css/themes/theme1.scss',
@@ -72,6 +73,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks("grunt-contrib-connect");
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-compass');
 
     // The default tasks to run when you type: grunt
     grunt.registerTask('default', ['browserify', 'copy', 'sass', "connect:server", 'watch']);

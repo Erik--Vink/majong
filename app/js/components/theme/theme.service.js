@@ -3,8 +3,8 @@ var _ = require("underscore");
 module.exports = function($window, $rootScope){
     var self = this;
     var themes = [
-        {name: 'Light', path:'css/themes/theme1.css'},
-        {name: 'Greenish', path:'css/themes/theme2.css'}
+        {name: 'Light', path:'css/themes/theme1.css', tileSprite: 'sprites1'},
+        {name: 'Greenish', path:'css/themes/theme2.css', tileSprite: 'sprites2'}
     ];
 
     self.getThemes = function(){

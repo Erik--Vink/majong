@@ -1,3 +1,8 @@
+@import "compass/utilities";
+@import "../../assets/images/sprites1/*.png";
+
+$tiles-map: sprite-map("../../assets/images/sprites1/*.png");
+
 .tile-container{
   display: block;
   position: relative;
@@ -48,18 +53,15 @@
   $tile_width:349px;
   $tile_height:480px;
 
-  $row_bamboo:0 * $tile_height;
-  $row_character: 9* $tile_height;
-  $row_circle: 18* $tile_height;
-  $row_dragon:27* $tile_height;
-  $row_flower:30* $tile_height;
-  $row_season:34* $tile_height;
-  $row_wind:38* $tile_height;
+  /*Load the sprite images*/
+  @each $tilename in sprite_names($tiles-map){
+    &.sprites2-#{$tilename}{
+      @include sprites1-sprite($tilename);
+    }
+  }
 
   height: $tile_height;
   width: $tile_width;
-
-  background: url(../../assets/SpriteSD.png);
   position: absolute;
   -ms-transform: scale(0.20,0.20); /* IE 9 */
   -webkit-transform: scale(0.20,0.20); /* Safari */
@@ -81,80 +83,5 @@
     position:absolute;
     background-color:red;
     opacity:0.5;
-  }
-
-  &.Bamboo{
-    @for $i from 1 through 9 {
-      &.name-#{$i} {
-        background-position-y:-($row_bamboo + (($i - 1) * $tile_height));
-      }
-    }
-  }
-  &.Character{
-    @for $i from 1 through 9 {
-      &.name-#{$i} {
-        background-position-y:-($row_character + (($i - 1) * $tile_height));
-      }
-    }
-  }
-  &.Circle{
-    @for $i from 1 through 9 {
-      &.name-#{$i} {
-        background-position-y:-($row_circle + (($i - 1) * $tile_height));
-      }
-    }
-  }
-  &.Dragon{
-    &.name-green{
-      background-position-y:-($row_dragon);
-    }
-    &.name-red{
-      background-position-y:-($row_dragon + (1 * $tile_height));
-    }
-    &.name-white{
-      background-position-y:-($row_dragon + (2 * $tile_height));
-    }
-  }
-  &.Wind{
-    &.name-north{
-      background-position-y:-($row_wind);
-    }
-    &.name-south{
-      background-position-y:-($row_wind + (1 * $tile_height));
-    }
-    &.name-east{
-      background-position-y:-($row_wind + (2 * $tile_height));
-    }
-    &.name-west{
-      background-position-y:-($row_wind + (3 * $tile_height));
-    }
-  }
-  &.Flower{
-    &.name-bamboo{
-      background-position-y:-($row_flower);
-    }
-    &.name-plum{
-      background-position-y:-($row_flower + (1 * $tile_height));
-    }
-    &.name-orchid{
-      background-position-y:-($row_flower + (2 * $tile_height));
-    }
-    &.name-chrysantememum{
-      background-position-y:-($row_flower + (3 * $tile_height));
-    }
-  }
-  &.Season{
-    &.name-spring{
-      background-position-y:-($row_season);
-    }
-    &.name-summer{
-      background-position-y:-($row_season + (1 * $tile_height));
-    }
-    &.name-autumn{
-      background-position-y:-($row_season + (2 * $tile_height));
-    }
-    &.name-winter{
-      background-position-y:-($row_season + (3 * $tile_height));
-    }
   }
 }
