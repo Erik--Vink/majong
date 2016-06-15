@@ -12,23 +12,27 @@ module.exports = function (config) {
             'node_modules/angular-mocks/angular-mocks.js',
             'node_modules/underscore/underscore-min.js',
             'http://mahjongmayhem.herokuapp.com/socket.io/socket.io.js',
+            'app/partials/*.html',
             'test/*.spec.js'
         ],
 
         reporters: ['progress', 'coverage'],
 
         preprocessors: {
-            // source files, that you wanna generate coverage for
-            // do not include tests or libraries
-            // (these files will be instrumented by Istanbul)
-            'app/**/*.js': ['coverage', 'browserify']
+            'app/**/*.js': ['coverage', 'browserify'],
+            'app/partials/*.html': ['ng-html2js']
+        },
+
+        ngHtml2JsPreprocessor: {
+            // strip this from the file path
+            stripPrefix: 'app/'
         },
 
         browserify: {
             debug: true,
             transform: [/*es6ify, brfs, 'browserify-shim',*/ istanbul({
-                ignore: ['**/node_modules/**', '**/test/**'],
-            })],
+                ignore: ['**/node_modules/**', '**/test/**']
+            })]
         },
 
         // optionally, configure the reporter
