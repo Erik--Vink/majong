@@ -1,11 +1,15 @@
 var _ = require("underscore");
 
-module.exports = function(MatchFactory, $scope, SocketService, $filter, $scope){
+module.exports = function(MatchFactory, $scope, SocketService, $filter){
     var self = this;
     self.solving = false;
 
     self.isMatchValid = function(){
         return MatchFactory.isMatchValid();
+    };
+
+    self.isGameEnded = function(){
+        return hints().length === 0;
     };
 
     self.postMatch = function(){
