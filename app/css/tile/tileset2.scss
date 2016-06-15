@@ -1,6 +1,6 @@
 @import "tile";
 
-@import "compass/utilities";
+@import "compass/utilities/sprites";
 @import "../../assets/images/tileset2/*.png";
 $tiles-map: sprite-map("../../assets/images/tileset2/*.png");
 

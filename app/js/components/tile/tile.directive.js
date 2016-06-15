@@ -22,28 +22,13 @@ module.exports = function(){
         },
         link : function(scope, element){
             scope.$watch('selectedTheme', function(newValue){
-                scope.selectedTheme = newValue;
-                switch(scope.selectedTheme.name){
-                    case 'Light' :
-                        scope.spacingX = 34;
-                        scope.spacingY = 44;
-                        scope.negativeSpacingY = 0;
-                        scope.sideSpacingX = 4;
-                        scope.sideSpacingY = 4;
-                        break;
-                    case 'Greenish' :
-                        scope.spacingX = 30;
-                        scope.spacingY = 45;
-                        scope.negativeSpacingY = 100;
-                        scope.sideSpacingX = 8;
-                        scope.sideSpacingY = 8;
-                        break;
+                if(newValue){
+                    scope.selectedTheme = newValue;
+                    var tileDiv = $(element).find(".tile");
+                    tileDiv.css("left", scope.tile.xPos * scope.selectedTheme.tileSet.spacingX + (scope.tile.zPos * scope.selectedTheme.tileSet.sideSpacingX));
+                    tileDiv.css("top", scope.tile.yPos * scope.selectedTheme.tileSet.spacingY - (scope.tile.zPos * scope.selectedTheme.tileSet.sideSpacingY) - scope.selectedTheme.tileSet.negativeSpacingY);
                 }
-                var tileDiv = $(element).find(".tile");
-                tileDiv.css("left", scope.tile.xPos * scope.spacingX + (scope.tile.zPos * scope.sideSpacingX));
-                tileDiv.css("top", scope.tile.yPos * scope.spacingY - (scope.tile.zPos * scope.sideSpacingY) - scope.negativeSpacingY);
             },true);
-
             var tileDiv = $(element).find(".tile");
             var zIndex = 100 + scope.tile.zPos *10 + (((scope.tile.yPos % 2 == 0)?scope.tile.yPos:scope.tile.yPos+1) + (scope.tile.zPos * scope.tile.yPos) - (scope.tile.xPos * 2));
             tileDiv.css("z-index", zIndex);
