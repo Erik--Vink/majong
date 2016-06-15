@@ -1,6 +1,6 @@
 var _ = require("underscore");
 
-module.exports = function(MatchFactory, $scope, SocketService, $filter, $scope){
+module.exports = function(MatchFactory, $scope, SocketService, $filter){
     var self = this;
     self.solving = false;
 
@@ -8,12 +8,17 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter, $scope){
         return MatchFactory.isMatchValid();
     };
 
+    self.isGameEnded = function(){
+        return hints().length === 0;
+    };
+
     self.postMatch = function(){
         MatchFactory.postMatch(self.gameId);
     };
 
     self.solve = function(){
-        if(hints().length > 0){
+        if(hints().length > 0 && !self.solving){
+            MatchFactory.clearSelectedTiles();
             self.solving = true;
             solveOne();
         }
@@ -22,11 +27,6 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter, $scope){
     self.highlightMatch = function(match){
         self.selectedMatchTimestamp = match.foundOn;
     };
-
-    $scope.$on('themeChanged', function(newValue){
-        console.log("receiving");
-        //$scope.selectedTheme = newValue;
-    });
 
     self.hint = function(){
         var matching = hints();
@@ -125,6 +125,11 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter, $scope){
             self.tiles[tile2Position] = tile2;
 
             $scope.$apply();
+
+            // CHEATS
+            if(self.solving && hints().length > 0) {
+                solveOne();
+            }
         }
     };
 
@@ -156,13 +161,6 @@ module.exports = function(MatchFactory, $scope, SocketService, $filter, $scope){
 
     $scope.$watch('vm.matches', function(newValue, oldValue){
         self.matches = newValue;
-
-        // CHEATS
-        console.log("solving: " + self.solving + " => " + hints().length);
-        if(self.solving && hints().length > 0) {
-            console.log("next.");
-            solveOne();
-        }
     });
 
     $scope.$on('tileSelected', function (event, data) {
